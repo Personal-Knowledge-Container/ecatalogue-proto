@@ -1,0 +1,111 @@
+/* the annotated version of this smart contract features unified 
+   handling of offsets, and also, three additional fields are present in 
+   order to ensure compatibility with myetherwallet.com. there are also 
+   notes explaining the reasoning behind the choice of instructions and 
+   the state of the execution-stack. here is the table for invocations: 
+   in the initial draft sent over a month ago, the invocation-table was 
+   not given because it was supposed to be inserted by the assembler 
+   automatically. however, for the sake of transparency and legibility 
+   it was later moved out: */
+
+PUSH1 28 PUSH2 256 EXP PUSH1 0 CALLDATALOAD DIV DUP1 DUP1 DUP1 DUP1 DUP1
+PUSH4 0x70a08231 EQ PUSH2 $A JUMPI /* balanceOf(address) */
+PUSH4 0x313ce567 EQ PUSH2 $B JUMPI /* decimals() */
+PUSH4 0x06fdde03 EQ PUSH2 $C JUMPI /* name() */
+PUSH4 0x95d89b41 EQ PUSH2 $D JUMPI /* symbol() */
+PUSH4 0x18160ddd EQ PUSH2 $E JUMPI /* totalSupply() */
+PUSH4 0xa9059cbb EQ PUSH2 $F JUMPI /* transfer(address,uint256) */
+STOP
+
+A:
+JUMPDEST PUSH1 216 PUSH1 20 PUSH2 256 EXP MUL PUSH1 4 CALLDATALOAD ADD PUSH1 0 MSTORE
+PUSH1 21 PUSH1 11 SHA3 SLOAD
+PUSH1 0 MSTORE PUSH1 32 PUSH1 0 RETURN
+
+B:
+
+/* this is a constant function. that is to say, it is a function which 
+   returns an unchanging number. even though the number is only one byte 
+   in length, it must return 32 bytes in conformance with the Solidity 
+   ABI as explained in an earlier article. */
+
+JUMPDEST PUSH1 0 PUSH1 0 MSTORE 
+PUSH1 32 PUSH1 0 RETURN
+
+C:
+
+/* this is a constant function. that is to say, it is a function which 
+   returns an unchanging number. even though the number is only seven 
+   bytes in length, it must return 64 bytes in conformance with the 
+   Solidity ABI as explained in an earlier article. */
+
+JUMPDEST PUSH1 7 PUSH1 0 MSTORE
+PUSH7 0x44415441564c54 PUSH1 25 PUSH2 256 EXP MUL PUSH1 32 MSTORE
+PUSH1 64 PUSH1 0 RETURN
+
+D:
+
+/* this is a constant function. that is to say, it is a function which 
+   returns an unchanging number. even though the number is only four
+   bytes in length, it must return 64 bytes in conformance with the 
+   Solidity ABI as explained in an earlier article. */
+
+JUMPDEST PUSH1 4 PUSH1 0 MSTORE 
+PUSH4 0x44564c54 PUSH1 28 PUSH2 256 EXP MUL PUSH1 32 MSTORE
+PUSH1 64 PUSH1 0 RETURN
+
+E:
+
+/* this is a constant function. that is to say, it is a function which 
+   returns an unchanging number. even though the number is only four
+   bytes in length, it must return 32 bytes in conformance with the 
+   Solidity ABI as explained in an earlier article. */
+
+JUMPDEST PUSH4 0x01406f40 PUSH1 0 MSTORE 
+PUSH1 32 PUSH1 0 RETURN
+
+F:
+
+/* the act of transferring can be broadly divided into two steps. the 
+   first is to subtract the balance from the sender. the second is to 
+   add the balance to the recipient. since the sender and recipient are 
+   represented by two key-value pairs in the internal storage-table, two
+   keys must be calculated, logically, one for the sender and one for 
+   the recipient. the state of the stack here, by the end of the second 
+   line, is KEY VALUE VALUE. first the SHA3 creates the KEY. then DUP1 
+   causes the state of the stack to be KEY KEY. then the topmost KEY is 
+   replaced by VALUE and duplicated again. thus, the state is KEY VALUE 
+   VALUE. */
+
+JUMPDEST PUSH1 216 PUSH1 20 PUSH2 256 EXP MUL CALLER ADD PUSH1 0 MSTORE
+PUSH1 21 PUSH1 11 SHA3 DUP1 SLOAD DUP1
+PUSH1 36 CALLDATALOAD GT PUSH2 $X JUMPI
+PUSH1 36 CALLDATALOAD SWAP1 SUB
+SWAP1 SSTORE
+
+/* this is the process of adding the amount to the recipient. as you can 
+   see, the state of the satck at the end of SLOAD is KEY VALUE. the 
+   instruction SHA3 is used to calculate KEY and DUP1 then changes the 
+   stack of the stack to KEY KEY. upon the execution of SLOAD, the state 
+   of the stack changes to KEY VALUE (being read from bottom to top) 
+   because the KEY on the top was replaced by a VALUE. */
+
+PUSH1 216 PUSH1 20 PUSH2 256 EXP MUL PUSH1 4 CALLDATALOAD ADD PUSH1 0 MSTORE
+PUSH1 21 PUSH1 11 SHA3 DUP1 SLOAD
+PUSH1 36 CALLDATALOAD ADD
+SWAP1 SSTORE
+
+/* the code above was not in the previous drafts which I sent but is 
+   necessary for compatibility with myetherwallet.com. an event is sent 
+   to the Ethereum network allowing "web3" clients to receive an update. 
+   this is done using the LOG3 instruction, which has 5 parameters: from 
+   top to bottom of the stack, the parameters are: offset of the 32-byte 
+   string representing the amount which was sent, the constant 32, the 
+   SHA3 of Transfer(address,address,uint256), the from-address, and the 
+   to-address. */
+
+PUSH1 4 CALLDATALOAD CALLER
+PUSH32 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
+PUSH1 36 CALLDATALOAD PUSH1 0 MSTORE PUSH1 32 PUSH1 0 LOG3
+PUSH1 1 PUSH1 0 MSTORE PUSH1 32 PUSH1 0 RETURN
+X: JUMPDEST PUSH1 0 PUSH1 0 MSTORE PUSH1 32 PUSH1 0 RETURN

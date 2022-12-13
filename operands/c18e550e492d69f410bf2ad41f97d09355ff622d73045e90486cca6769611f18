@@ -1,0 +1,109 @@
+import json
+import math
+import random
+import ssl
+import time
+import urllib.request
+
+def get_signature(address, subject):
+
+   _3263 = '{"jsonrpc": "2.0", "id": 1, "method": "eth_sign", "params": ["%s", "%s"]}' % (address, subject)
+   _3263 = bytes(_3263, 'utf-8')
+   _5582 = urllib.request.Request('http://172.104.72.218:9000', _3263, {'Content-Type': 'application/json'})
+   _2305 = urllib.request.urlopen(_5582).read()
+   _1424 = json.loads(_2305.decode('utf-8'))
+
+   return _1424['result']
+
+def render(subject, prefix = False):
+
+   _7741 = '0x' if prefix else ''
+
+   for _7592 in bytes(subject, 'utf-8'):
+      _7741 += '%02x' % _7592
+
+   return _7741
+
+def get_headers(address):
+
+   _4209 = math.floor(time.time())
+   _8423 = random.randint(0, 9)
+   _2582 = random.randint(0, 9)
+   _2164 = random.randint(0, 9)
+   _4511 = 'HYDRO-AUTHENTICATION@%s%s%s%s' % (_4209, _8423, _2582, _2164)
+   _5119 = get_signature(address, render(_4511, True))
+   _8262 = '%s#%s#%s' % (address, _4511, _5119)
+
+   return {'Hydro-Authentication': _8262}
+
+_4976 = 'marketId=%s&side=%s&price=%s&amount=%s' % ('ZRX-ETH', 'sell', '0.00282', '80')
+_4976 = bytes(_4976, 'utf-8')
+_2847 = get_headers('0xf5815be243238e79f67a4d206b21521001b58796')
+_8897 = urllib.request.Request('https://baidu.com')
+_7747 = urllib.request.urlopen(_8897)
+print(_7747)
+
+#_8897 = urllib.request.Request('https://api.ddex.io/v2/orders/build', _4976, _2847)
+#_7747 = urllib.request.urlopen(_8897)
+#print(_7747)
+
+
+
+
+def get_market():
+   _6767 = 'https://api.ddex.io/v2/markets'
+
+def get_market_9725(market):
+   _7590 = 'https://api.ddex.io/v2/markets/%s'
+
+def get_market_ticker():
+   _9673 = 'https://api.ddex.io/v2/markets/tickers'
+
+def get_market_ticker(market):
+   _9134 = 'https://api.ddex.io/v2/markets/%s/ticker'
+
+def get_market_orderbook(market, level):
+   _7418 = 'https://api.ddex.io/v2/markets/%s/orderbook?level=%s'
+
+def get_market_trade(market, page, size):
+   _1233 = 'https://api.ddex.io/v2/markets/%s/trades?page=%s&perPage=%s'
+
+def get_market_candle(market, from, to, granularity):
+   _3042 = 'https://api.ddex.io/v2/markets/%s/candles?from=%s&to=%s&granularity=%s'
+
+def get_fee(price, amount):
+   _1469 = 'https://api.ddex.io/v2/fees?price=%s&amount=%s'
+
+def post_order_build(market, side, price, amount):
+   _6702 = 'https://api.ddex.io/v2/orders/build'
+   _4728 = get_signature('')
+   _3884 = ''
+
+def post_order(order, signature):
+   _6724 = 'https://api.ddex.io/v2/orders'
+   _4883 = get_signature('')
+   _7335 = ''
+
+def delete_order(order):
+   _2567 = 'https://api.ddex.io/v2/orders/%s'
+   _1245 = get_signature('')
+
+def get_order(market, status, page, size):
+   _4522 = 'https://api.ddex.io/v2/orders?marketId=%s&status=%s&page=%s&perPage=%s'
+   _6780 = get_signature('')
+
+def get_order_6055(order):
+   _4211 = 'https://api.ddex.io/v2/orders/%s'
+   _4772 = get_signature('')
+
+def get_market_trade_2845(market, page, size):
+   _6581 = 'https://api.ddex.io/v2/markets/%s/trades/mine?page=%s&perPage=%s'
+   _8424 = get_signature('')
+
+def get_account_6363():
+   _2193 = 'https://api.ddex.io/v2/account/lockedBalances'
+   _6542 = get_signature('')
+
+def get_account_2434(symbol):
+   _9313 = 'https://api.ddex.io/v2/account/lockedBalance?symbol=%s'
+   _3068 = get_signature('')

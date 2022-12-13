@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+
+   <head>
+
+      <meta content="text/html; charset=us-ascii" http-equiv="Content-Type">
+      <meta content="initial-scale=1, width=device-width" name="viewport">
+
+	<script type="text/javascript">
+
+		window.addEventListener("DOMContentLoaded", react_load_9172);
+
+		function react_load_9172()
+		{
+			document.getElementById("a5d6").style.height = window.innerHeight + "px";
+		}
+
+	</script>
+
+      <style type="text/css">
+
+	.dcda {
+		margin: 0;
+		overflow-y: scroll;-
+	}
+
+	#a5d6 {
+		background-color: #EEEEEE;
+		xbackground-image: url(http://5531.yuan.engineering/84b8f38f940f0214e7f97006550fb959501226bb98a43e8728b76b563215ef82);
+		background-image: url(http://5531.yuan.engineering/6216c554a61d15150753431f930de920eb680931070980968f3f8610f782a029);
+		background-size: cover;
+		box-sizing: border-box;
+		position: relative;
+		padding: 61px 0 0;
+	}
+
+	#a5d6 #e56c {
+		border-bottom: 1px solid #CCCCCC;
+		background-color: #FFFFFF;
+		left: 0;
+		overflow: hidden;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+
+	#a5d6 #e56c #f48c {
+		float: left;
+		height: 48px;
+		margin: 6px 18px 6px 12px;
+		width: 144px;
+	}
+
+	#a5d6 #e56c .c132 {
+		color: #000000;
+		float: left;
+		font-family: sans-serif;
+		font-size: 18px;
+		line-height: 60px;
+		padding: 0 18px;
+		text-decoration: none;
+	}
+
+	#a5d6 #e56c .f1bd {
+		border: 1px solid #000000;
+		color: #000000;
+		float: right;
+		font-family: sans-serif;
+		font-size: 18px;
+		line-height: 34px;
+		padding: 0 18px;
+		text-decoration: none;
+	}
+
+	#a5d6 #e56c .aa60 {
+		margin: 12px 12px 0 0;
+	}
+
+	#a5d6 #e56c .dd45 {
+		margin: 12px 12px 0 0;
+	}
+
+	#a5d6 .fb07 {
+		float: left;
+		margin: 0 12px 0 0;
+		overflow: hidden;
+	}
+
+	#a5d6 .fb07 .fc04 {
+		border: 1px solid #333333;
+		float: left;
+		font-family: sans-serif;
+		font-size: 16px;
+		line-height: 30px;
+		outline: 0;
+		padding: 0 6px;
+		width: 180px;
+	}
+
+	#a5d6 .fb07 .fc04:focus {
+		background-color: #FFEEEE;
+	}
+
+	#a5d6 .fb07 .e550 {
+		background-color: #333333;
+		border-bottom: 1px solid #333333;
+		border-right: 1px solid #333333;
+		border-top: 1px solid #333333;
+		color: #FFFFFF;
+		float: left;
+		font-family: sans-serif;
+		font-size: 16px;
+		line-height: 30px;
+		padding: 0 18px;
+	}
+
+	#a5d6 #eb9c {
+		float: left;
+		height: 24px;
+		margin: 4px 12px 0 0;
+		width: 24px;
+	}
+
+	#a5d6 #e515 {
+		background-color: #669966;
+		color: #FFFFFF;
+		cursor: pointer;
+		float: left;
+		font-family: sans-serif;
+		font-size: 16px;
+		line-height: 32px;
+		padding: 0 18px;
+	}
+
+	#a5d6 #d808 {
+		margin: 0 auto;
+		padding: 60px 0 0;
+		width: 1024px;
+	}
+
+	#a5d6 #d808 #d2ba {
+		font-family: sans-serif;
+		font-size: 36px;
+		margin: 0 0 6px;
+	}
+
+	#a5d6 #d808 #f72d {
+		font-family: sans-serif;
+		font-size: 20px;
+		font-style: italic;
+		margin: 0 0 60px;
+	}
+
+	#a5d6 #caa4 {
+		margin: 0 auto;
+		width: 1024px;
+	}
+
+      </style>
+
+      <title></title>
+
+   </head>
+
+   <body class="dcda">
+
+	<div id="a5d6">
+
+		<div id="e56c">
+			<img id="f48c" src="http://placehold.it/144x48">
+			<a class="c132" href="/">Socrates</a>
+			<a class="c132" href="/">Agamemnon</a>
+			<a class="c132" href="/">Myron</a>
+			<a class="c132" href="/">Hesiod</a>
+			<a class="c132" href="/">Pericles</a>
+			<a class="f1bd aa60" href="/">Register</a>
+			<a class="f1bd dd45" href="/">Log In</a>
+		</div>
+
+		<div id="d808">
+			<div id="d2ba">Converting the world's currencies.</div>
+			<div id="f72d">USDT is no longer the greatest stable-coin on the market.</div>
+		</div>
+
+		<div id="caa4">
+
+		<div class="fb07">
+			<input class="fc04">
+			<div class="e550">CNY</div>
+		</div>
+
+		<img id="eb9c" src="http://placehold.it/24x24">
+
+		<div class="fb07">
+			<input class="fc04">
+			<div class="e550">ETH</div>
+		</div>
+
+		<div id="e515">Convert</div>
+
+		</div>
+
+	</div>
+<!--
+
+
+-->
+
+<!--
+<div id="b9ae"></div>
+<div id="bd28"></div>
+
+-->
+
+   </body>
+
+</html>

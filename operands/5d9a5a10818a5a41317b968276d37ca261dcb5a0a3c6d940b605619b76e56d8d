@@ -1,0 +1,185 @@
+{\rtf1\ansi\ansicpg1252\deff0{\fonttbl{\f0\fswiss\fprq2\fcharset0 Source Han Sans SC Normal;}{\f1\fswiss\fprq2\fcharset0 Source Han Sans SC Bold;}}
+{\*\generator Msftedit 5.41.15.1515;}\viewkind4\uc1\pard\lang1033\f0\fs22\par
+\fs28 Introduction\fs22\par
+\par
+This document will be the basis for a detailed manual to be used internally among the team of Prudenze to coordinate their product-implementation. It will include the Application Binary Interface (ABI), the job of which is to exhaustively describe the file-formats and communication-protocols of the components of Prudenze, both in relation to each other and to third parties. For now, I will list questions at the end of each subsection to be clarified upon during further discussions. Allow me first to present an outline of the project-goals:\par
+\par
+Features of MVP\par
+\i This list was adapted from the previous list by Mr Lee.\i0\par
+\par
+\tab 1. Wallet with inherent KYC/AML accreditation, including street-name trading.\par
+\tab 2. Depositing and withdrawing of BTC and ETH.\par
+\tab 3. Accounts and authentication. Balances. History of transactions.\par
+\tab 4. Reputations.\par
+\tab 5. Registration of STO.\par
+\tab 6. Dashboard.\par
+\tab 7. Cybersecurity.\par
+\par
+Features of Beta\par
+\i This list was adapted from the previous list by Mr Lee.\i0\par
+\par
+\tab 1. Depositing and withdrawing of 1ST (the DS protocol) as well as stable-coins:\par
+\tab\tab USDT / TUSD / GUSD\par
+\tab 2. Management of tokens.\par
+\tab 3. Many-layered KYC based on residence-jurisdiction.\par
+\tab 4. Platform for issuance.\par
+\tab 5. Integration with exchanges.\par
+\tab 6. API for third parties.\par
+\tab 7. Collation of data from external sources.\par
+\par
+Features of Public Release\par
+\i This list was adapted from the previous list by Mr Lee.\i0\par
+\par
+\tab 1. Depositing and withdrawing of:\par
+\tab\tab DS (Securitize) / R Token (Harbor) / S3 (OpenFinance) / ST20 (Polymath)\par
+\tab 2. Extensions and plug-ins.\par
+\tab 3. OTC, crowdfunding, and other third-party integrations.\par
+\tab 4. Generation of reports, starting with international tax-reports.\par
+\tab 5. Inherent escrow-system.\par
+\tab 6. Partnership and integration with hardware wallets.\par
+\tab 7. Whitelabel of the wallet (not the other components).\par
+\par
+\fs28 Basics of Implementation\fs22\par
+\par
+It should be noted that the present conception of the Prudenze platform conforms to, and extends, the already widespread paradigm of the "cloud-computing system," which is built from a mixture of network-communication, user-authentication, and storage-backends. What underlies each of these systems is an SQL database connected to a program known as the Controller which implements the logical rules necessary for authenticating users, providing informational services, communicating with third-party components or entities, and managing resources. Whereas a cloud-computing service such as Amazon Web Services accumulates and handles virtual processing-power and virtual RAM as if they were resources, a blockchain-based service needs to generate, contain, and utilize digital assets. In almost all instances, possession of these assets is determined by ownership of private keys, meaning that the secure storage of the latter is of the highest importance. On the other hand, when customers access the system, they must do so using what are called client-programs or client-interfaces. In our case, these are the website and the Android program. The format of communication between these entities is determined by the Application Binary Interface (ABI). The mechanisms for internal storage are also determined by the Application Binary Interface (ABI).\par
+\par
+\ul\f1 An SQL database.\ulnone\f0\par
+\par
+To create an SQL database, we must first design a schema which specifies the range of possible information stored in every column and row. This process ideally should occur together with the designing of all of the website's application-forms. For example, the log-in form, the registration-form, the KYC verification form, the transaction submission-form, and so forth. All of these forms are composed of multiple fields, and, should the user input the wrong value, the submission may be rejected and sent back to the user for corrections. The distinct operations of the web-application, as well as the relationships between objects must also be determined. Down the road they can be changed, but it may require additional effort. By designing the system in a modular fashion, the cost of later corrections can be mitigated. However, it is the case with the software industry that the modularity-goal is frequently, almost universally declared, but seldom satisfied.\par
+\par
+\ul\f1 A controlling program which communicates with the SQL database.\ulnone\b\f0\par
+\b0\par
+This program, known as the Controller, may be implemented in nearly any language or execution-environment. Some people prefer Python, others Java, and others C or C++. The Controller is responsible for storage, retrieval, calculation, and authentication. All communication with the database must go through the Controller. As systems get larger, more than one Controller runs at once, spanning across different machines. Likewise, more than one database exists at once, with no database containing all of the records because of the heavy inward flow of information, but the databases are meant to periodically synchronize with each other. The Controller may listen and parse HTTP Requests on its own, or it may work in conjunction with nginx(1), Apache, or some other HTTP listening program.\par
+\par
+The Hypertext Panels, the Android program, and any number of programs or scripts, both internal and external, may be communicating with the Controller. The Controller has strict rules as to what types of messages it may receive. In particular, messages are divided into distinct types, such as a message for logging in, or a message for transferring tokens, or a message for submitting KYC information. Each message-type is bound to a particular HTTP path, such as /log-in, or /transfer. These paths are known as "pylons." There needs to be discussion between the partners concerning the exact number of pylons offered and the functionality of each.\par
+\par
+\ul\f1 A set of HTML/CSS/JS files.\f0\par
+\ulnone\par
+Every one of the HTML/CSS/JS files constitutes a Hypertext Panel. These Panels not only display information as well as application-forms for the user to submit, but also have the power of sending signals to the Controller, performing cryptographic calculations, and dictating the program's entire UX. In the case of noncustodial web-wallets such as myetherwallet.com, the private key of the user is loaded into the Panels, but the Panels do not, under any circumstance, send the private key to the Controller. Otherwise, the wallet would no longer be noncustodial. On the contrary, in the case of a custodial wallet, one of two things happen: 1) the private key is sent from the Panels to the Controller, or 2) the private key is not created by the user, but directly generated within the Controller. Nearly all custodial wallets go with the second option, because they do not trust the computer-illliterate user to keep his own private keys safe.\par
+\par
+In the course of development, wireframes may first be created, one corresponding to each Panel. Then the preliminary versions of the Panels may be created, following which, the UX artist or agent may execute a series of revisions, thereby adjusting colors, shapes, and other elements of style. Every Panel is a single file which ends with the extension .html, but which internally contains HTML, CSS, and JS combined.\par
+\par
+\ul\f1 An Android program.\b\f0\par
+\ulnone\b0\par
+Android programs are composed of Activities and Fragments, inside which are Layouts, and then Views. Given some time, these may be assembled in a piecewise fashion and integrated into a single .apk. The Android program communicates with the Controller. It is important to note, there is no communication between the Controller and the Hypertext Panels. If we are to create an Android program, we must determine the number of distinct Activities and Fragments to be created, and how each of these objects corresponds to the business-functionality in the view of the client. For example, one Activity or Fragment may manage the act of logging in, while another manages the act of recovering one's forgotten password.\par
+\par
+\fs28 Paths\fs22\par
+\par
+/\par
+/change-password\par
+/confirm/$CODE\par
+/govern\par
+/greet/$EPHEMERAL\par
+/log-in\par
+/manage\par
+/read/about-us\par
+/read/frequently-asked-questions\par
+/read/privacy-policy\par
+/read/terms-of-service\par
+/recover\par
+/recover/$CODE\par
+/register\par
+\par
+\fs28 Management of Accounts\fs22\par
+\par
+Different accounts will have different roles, otherwise known as ranks. What will be the different ranks? Every rank must have an identification-number. When the real-world identity of a given account is verified, there will be a transition from one rank to another. Aside from ranks, users can also be given different badges depending on their real-world attributes. For example, a person who has an Accredited Investor's license in the United States could be given one badge. If he possesses such status in Hong Kong, he will be awarded another.\par
+\par
+\tab CONTENTION. This introduces the further difficulty  that the system will have to keep track of the expirations or revocations of licenses.\par
+\par
+\tab There will be email verification.\par
+\tab At first, the standing of each account is 6420.\par
+\tab When the email is verified, the standing changes to 3825.\par
+\par
+\fs28 Third Party Integrations\fs22\par
+\par
+\f1 Pusher.\f0  A service used to send and receive WebSocket messages.\par
+\par
+\f1 Twilio.\f0  A service used to send and receive telephone-calls and SMS.\par
+\par
+\f1 Algolia.\f0  A service used to search through documents and other data-objects.\par
+\par
+\f1 Stripe.\f0  A service used to process credit-card payments.\par
+\par
+\f1 Mailgun.\f0  A service used to send automated emails, either individually or en masse.\par
+\par
+\f1 Cynopsis.\f0  A service used to perform KYC background-checks.\par
+\par
+\fs28 Keywords\fs22\par
+\par
+Compliance\par
+Accounting\par
+Reporting\par
+Audit\par
+Investment\par
+Management Dashboard\par
+Reporting Tools\par
+Reputation System\par
+\par
+\fs28 Potential Markets\fs22\par
+\par
+Singapore\par
+South Korea\par
+China\par
+Hong Kong\par
+Australia\par
+\par
+\fs28 Pylons\fs22\par
+\par
+\ul HTTP: Apply for Membership (9759)\ulnone\par
+\par
+[8012] Email Address\par
+\par
+The value of [8012] is limited to 255 characters.\par
+It cannot be empty.\par
+It must be ASCII-94.\par
+\par
+\ul HTTP: Apply for Membership (4629)\ulnone\par
+\par
+[7092] Email Address\par
+[3225] First Name\par
+[2462] Last Name\par
+\par
+The value of [7092] is limited to 255 characters.\par
+It cannot be empty.\par
+It must be ASCII-94.\par
+The value of [3225] is limited to 255 characters.\par
+It cannot be empty.\par
+It must be ASCII-95.\par
+The value of [2462] is limited to 255 characters.\par
+It cannot be empty.\par
+It must be ASCII-95.\par
+\par
+\ul HTTP: Apply for Membership (4284)\ulnone\par
+\par
+[5479] Email Address\par
+[8373] First Name\par
+[1020] Last Name\par
+[9240] Organization\par
+\par
+The value of [5479] is limited to 255 characters.\par
+It cannot be empty.\par
+It must be ASCII-94.\par
+The value of [8373] is limited to 255 characters.\par
+It cannot be empty.\par
+It must be ASCII-95.\par
+The value of [1020] is limited to 255 characters.\par
+It cannot be empty.\par
+It must be ASCII-95.\par
+The value of [9240] is limited to 255 characters.\par
+It cannot be empty.\par
+It must be ASCII-95.\par
+\par
+\ul HTTP: Log In (9585)\par
+\ulnone\par
+[7281] Email Address\par
+[9790] Password\par
+\par
+\ul HTTP: Change Password (6781)\ulnone\par
+\par
+[6042] New Password\par
+\par
+\ul HTTP: Request Recovery (9102)\ulnone\par
+\par
+[7154] Email Address\par
+}
+ 

@@ -1,0 +1,242 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+   
+   <head>
+
+      <script type="application/javascript">
+
+         /* The CSS needs to be revised. */
+
+         window.addEventListener("load", react_1293);
+
+         function react_1293() {
+
+            document.getElementById("e5d2").addEventListener("click", react_4121);
+            document.getElementById("eb28").addEventListener("keydown", react_5574);
+            document.getElementById("a278").addEventListener("keydown", react_5574);
+            document.getElementById("eb28").focus();
+         }
+
+         function react_4121() {
+
+            submit_5448(document.getElementById("a278").value, document.getElementById("eb28").value);
+         }
+
+         function react_5574(_9500) {
+
+            if (_9500.keyCode != 13) {
+
+               return;
+            }
+
+            submit_5448(document.getElementById("a278").value, document.getElementById("eb28").value);
+         }
+
+         function submit_5448(_5200, _4834) {
+
+            /* Rename everything including the name of the function. */
+
+            _7536 = document.createElement("input");
+            _7536.setAttribute("name", "3806");
+            _7536.setAttribute("value", _5200);
+
+            _5275 = document.createElement("input");
+            _5275.setAttribute("name", "4555");
+            _5275.setAttribute("value", _4834);
+
+            _3216 = document.createElement("form");
+            _3216.appendChild(_7536);
+            _3216.appendChild(_5275);
+            _3216.setAttribute("action", "/log-in-1429");
+            _3216.setAttribute("method", "POST");
+
+            _3216.style.visibility = "hidden";
+            document.body.appendChild(_3216).submit();
+         }
+
+         function react_6724(_1555) {
+            document.getElementById(_1555).style.display = "block" 
+         }
+
+         function react_6941(_1513) {
+            document.getElementById(_1513).style.display = "none"
+         }
+
+      </script>
+      
+      <style type="text/css">
+
+         @font-face {
+
+            font-family: SourceCodePro;
+            src: url("https://2047.yuan.engineering/50b50d9fad5a49ac34129b606027a80e1b7ccd799bb91734bb4f60cdaaeb0ac0") format("truetype");
+         }
+
+         @font-face {
+
+            font-family: SourceSansPro;
+            src: url("https://2047.yuan.engineering/961a639b53baf78f48a25bd96fc8b94204f808ac814a4c08ea7292f999214304") format("truetype");
+         }
+
+         .e145 {
+
+            background-color: #CCCCCC;
+            margin: 128px 0 0;
+            overflow-y: scroll;
+         }
+
+         #c2ba {
+
+            margin: 0 0 24px;
+         }
+
+         #c2ba #eb36 {
+
+            display: block;
+            height: 74px;
+            margin: 0 auto;
+            width: 287px;
+         }
+
+         #aaad {
+
+            background-color: #FFFFFF;
+            border-radius: 6px;
+            margin: 0 auto 18px;
+            padding: 24px 24px;
+            width: 432px;
+         }
+
+         #aaad #eba6 {
+
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 16px;
+            margin: 0 0 3px;
+         }
+
+         #aaad #eb28 {
+
+            border: 1px solid #000000;
+            box-sizing: border-box;
+            display: block;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 30px;
+            margin: 0 0 12px;
+            outline: 0;
+            padding: 0 6px;
+            width: 100%;
+         }
+
+         #aaad #dc12 {
+
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 16px;
+            margin: 0 0 3px;
+         }
+
+         #aaad #a278 {
+
+            border: 1px solid #000000;
+            box-sizing: border-box;
+            display: block;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 30px;
+            margin: 0 0 18px;
+            outline: 0;
+            padding: 0 6px;
+            width: 100%;
+         }
+
+         #aaad #e5d2 {
+
+            background-color: #006600;
+            color: #FFFFFF;
+            cursor: pointer;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 32px;
+            text-align: center;
+            cursor: pointer;
+            width: 50%
+         }
+
+         #c49e {
+
+            text-align: center;
+         }
+
+         #c49e #ef10 {
+
+            color: #000000;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 16px;
+         }
+
+         #a07d {
+            border-color: #d93b34;
+            background-color: #ffc5c2;
+            color: #d93b34;
+            display: none;
+         }
+
+         #b3e0 {
+            border-color: #006600;
+            background-color: #cefdce;
+            color: #006600;
+            display: none;
+         }
+
+         #a07d, #b3e0 {
+            padding: 12px;
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 4px;
+            margin-bottom: 16px;
+         }
+
+         .d86c {
+            font-size: 14px;
+            font-family: SourceSansPro, serif;
+            margin: 0 0 8px 0;
+         }
+
+      </style>
+
+      <title>Login</title>
+
+   </head>
+
+   <body class="e145">
+
+      <div id="c2ba"><img alt="" id="eb36" src="https://2047.yuan.engineering/debd52f6d2d30e8d8fc68c3846caf5cfa4b2a4ddfc7c48379d3c46f2c8bbf9a3"></div>
+      
+      <div id="aaad">
+         <div id="a07d">
+            <p class="d86c">We are sorry to say that the process of logging in has failed.</p>
+            <p class="d86c">You are welcome to try again.</p>
+         </div>
+
+         <div id="b3e0">
+            <p class="d86c">The page which you have requested requires authentication.</p>
+            <p class="d86c">Please log in using the form below</p>
+         </div>
+
+         <div id="eba6">Email Address</div>
+         <input id="eb28">
+         <div id="dc12">Password</div>
+         <input id="a278" type="password">
+         <div id="e5d2">Log In</div>
+      </div>
+
+      <div id="c49e"><a href="/" id="ef10">Return to Frontpage</a></div>
+
+   </body>
+
+</html>

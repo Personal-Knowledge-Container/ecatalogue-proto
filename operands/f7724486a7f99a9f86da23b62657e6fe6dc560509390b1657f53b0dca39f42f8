@@ -1,0 +1,39 @@
+tcc version 0.9.26 - Tiny C Compiler - Copyright (C) 2001-2006 Fabrice Bellard
+Usage: tcc [options...] [-o outfile] [-c] infile(s)...
+       tcc [options...] -run infile [arguments...]
+General options:
+  -c          compile only - generate an object file
+  -o outfile  set output filename
+  -run        run compiled source
+  -fflag      set or reset (with 'no-' prefix) 'flag' (see man page)
+  -Wwarning   set or reset (with 'no-' prefix) 'warning' (see man page)
+  -w          disable all warnings
+  -v          show version
+  -vv         show included files (as sole argument: show search paths)
+  -dumpversion
+  -bench      show compilation statistics
+Preprocessor options:
+  -E          preprocess only
+  -Idir       add include path 'dir'
+  -Dsym[=val] define 'sym' with value 'val'
+  -Usym       undefine 'sym'
+Linker options:
+  -Ldir       add library path 'dir'
+  -llib       link with dynamic or static library 'lib'
+  -pthread    link with -lpthread and -D_REENTRANT (POSIX Linux)
+  -r          generate (relocatable) object file
+  -rdynamic   export all global symbols to dynamic linker
+  -shared     generate a shared library
+  -soname     set name for shared library to be used at runtime
+  -static     static linking
+  -Wl,-opt[=val]  set linker option (see manual)
+Debugger options:
+  -g          generate runtime debug info
+  -b          compile with built-in memory and bounds checker (implies -g)
+  -bt N       show N callers in stack traces
+Misc options:
+  -nostdinc   do not use standard system include paths
+  -nostdlib   do not link with standard crt and libraries
+  -Bdir       use 'dir' as tcc internal library and include path
+  -MD         generate target dependencies for make
+  -MF depfile put generated dependencies here

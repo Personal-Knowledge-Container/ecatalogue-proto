@@ -1,0 +1,153 @@
+#Hotstring O C1
+#Hotstring EndChars `t
+#SingleInstance force
+
+EFD8 := "D:"
+
+SetWorkingDir, %EFD8%
+
+!Space::
+   Run, %EFD8%
+return
+
+F1::
+   Run, cmd
+return
+
++^F12::
+   WinHide, Glock
+return
+
+^I::
+   SendInput, ^o{Enter}
+   Sleep 50
+   WinActivate, lycurgus-1-execution
+   SendInput {Up}{Enter}
+   WinActivate, lycurgus-1-inscription
+return
+
+F6::
+   SendInput, set PROMPT=$$ {Enter}
+   SendInput, set PATH=C:\Program Files (x86)\Java\jdk1.8.0_121\bin;`%`PATH`%`{Enter}
+   SendInput, set PATH=%EFD8%\Programs\PuTTY;`%`PATH`%`{Enter}
+   SendInput, set PATH=%EFD8%\Programs\Mpack;`%`PATH`%`{Enter}
+   SendInput, set PATH=%EFD8%\Programs\AAPT;`%`PATH`%`{Enter}
+return
+
+F5::
+   SendInput, mksh{Enter}
+   SendInput, unalias -a{Enter}
+   SendInput, alias banish="ash /opt/scripts/banish.ash"{Enter}
+   SendInput, alias bible="nano -v /opt/operands/ef4a0a6f3bf7254c2304a0d7b577200f2b13c5c37c9bb5c28875e4017bbf14e9"{Enter}
+   SendInput, alias catalog="sqlite3 /home/yuanxun/storages/catalog.sqlite \"SELECT * FROM items ORDER BY time DESC, comment DESC\" | less"{enter}
+   SendInput, alias commit="ash /opt/scripts/commit.ash"{Enter}
+   SendInput, alias encomium="nano -v /opt/operands/5d52c2ae41215dc6e746a75349f5571a018fc840955947788c53c4e92c7f9943"{Enter}
+   SendInput, alias mirror="ash /opt/scripts/mirror.ash"{Enter}
+   SendInput, alias nano="nano -w -x -E -T 3 -I -S"{Enter}
+   SendInput, alias pack="php /opt/scripts/pack.php"{Enter}
+   SendInput, alias python="python3"{Enter}
+   SendInput, alias read="php /opt/scripts/read.php /home/yuanxun/storages/mail.sqlite | less -R"{Enter}
+   SendInput, alias readd="php /opt/scripts/read.php /home/yuanxun/storages/mail.sqlite -d"{Enter}
+   SendInput, alias readg="php /opt/scripts/read.php /home/yuanxun/storages/mail.sqlite -g"{Enter}
+   SendInput, alias sqlite="sqlite3"{Enter}
+   SendInput, alias summon="ash /opt/scripts/summon.ash"{Enter}
+   SendInput, alias write="php /opt/scripts/write.php"{Enter}
+   SendInput, LD_LIBRARY_PATH=/usr/local/lib export LD_LIBRARY_PATH{Enter}
+   SendInput, PATH="$PATH:/usr/local/plan9/bin" export PATH{Enter}
+   SendInput, PS1="$ " export PS1{Enter}
+return
+
+F9::
+   B6C4 := GET_SIX()
+   B3CF := GET_SIXTEEN()
+   D676 := GET_SIXTEEN()
+   FF28 := GET_SIXTEEN()
+   SendInput, %B6C4%%B3CF%%D676%%FF28%
+return
+
++F9::
+   B6C4 := GET_SIXTEEN()
+   B3CF := GET_SIXTEEN()
+   D676 := GET_SIXTEEN()
+   FF28 := GET_SIXTEEN()
+   SendInput, %B6C4%%B3CF%%D676%%FF28%
+return
+
+F10::
+   B6C4 := GET_NINE()
+   B3CF := GET_TEN()
+   D676 := GET_TEN()
+   FF28 := GET_TEN()
+   SendInput, %B6C4%%B3CF%%D676%%FF28%
+return
+
++F10::
+   B6C4 := GET_TEN()
+   B3CF := GET_TEN()
+   D676 := GET_TEN()
+   FF28 := GET_TEN()
+   SendInput, %B6C4%%B3CF%%D676%%FF28%
+return
+
+F11::
+   time := DllCall("C:\WINDOWS\system32\msvcrt.dll\time", "Cdecl Int")
+   Sleep 200
+   Send %time%
+return
+
+^F12::
+   Random, DIGIT, 0, 255
+   Send %DIGIT%
+return
+
+F12::
+   Reload
+return
+
+GET_NINE()
+{
+   Random, DIGIT, 49, 57
+   Transform, DIGIT, Chr, %DIGIT%
+   return DIGIT
+}
+
+GET_TEN()
+{
+   Random, DIGIT, 48, 57
+   Transform, DIGIT, Chr, %DIGIT%
+   return DIGIT
+}
+
+GET_SIX()
+{
+   Random, DIGIT, 97, 102
+   Transform, DIGIT, Chr, %DIGIT%
+   return DIGIT
+}
+
+GET_SIXTEEN()
+{
+   Random, DIGIT, 0, 15
+   if DIGIT < 10
+   { DIGIT := DIGIT + 48
+   }
+   else
+   { DIGIT := DIGIT + 87
+   }
+   Transform, DIGIT, Chr, %DIGIT%
+   return DIGIT
+}
+
+::127::127.0.0.1
+::138::138.197.174.41
+::39::39.105.14.146
+::172::172.104.72.218
+::444::4bfba9b7e6fe
+::999::9c512d6ca181
+::etc::C:\WINDOWS\system32\drivers\etc
+::139::139.162.30.221
+
+::aaa::ad09f58efbc3
+::000::10306ddf54250
+::fff::f898f3caf1dbff63
+::jjj::justice920@1

@@ -1,0 +1,377 @@
+<?php
+
+if (count($argv) == 3 && $argv[1] == '-c') {
+
+   $_3347 = array_flip(get_encoding());
+   $_8312 = strip_5011(file_get_contents($argv[2]));
+   $_4694 = reduce($_8312, $_3347);
+   $_9190 = resolve($_4694, get_offsets($_4694));
+
+   var_dump(count($_9190));
+   die();
+}
+
+if (count($argv) == 3) {
+
+   $_3347 = array_flip(get_encoding());
+   $_3013 = strip_5011(file_get_contents($argv[1]));
+   $_1070 = reduce($_3013, $_3347);
+   $_8312 = strip_5011(file_get_contents($argv[2]));
+   $_4694 = reduce($_8312, $_3347);
+   $_9190 = resolve($_4694, get_offsets($_4694));
+   
+   echo sprintf("%s%s%c", render_6281($_1070, true), render_6281($_9190), 10);
+   die();
+}
+   
+function get_encoding()
+{
+   $_1074 = array();
+   
+   $_1074[0] = 'STOP';
+   $_1074[1] = 'ADD';
+   $_1074[2] = 'MUL';
+   $_1074[3] = 'SUB';
+   $_1074[4] = 'DIV';
+   $_1074[5] = 'SDIV';
+   $_1074[6] = 'MOD';
+   $_1074[7] = 'SMOD';
+   $_1074[8] = 'ADDMOD';
+   $_1074[9] = 'MULMOD';
+   $_1074[10] = 'EXP';
+   $_1074[11] = 'SIGNEXTEND';
+   $_1074[16] = 'LT';
+   $_1074[17] = 'GT';
+   $_1074[18] = 'SLT';
+   $_1074[19] = 'SGT';
+   $_1074[20] = 'EQ';
+   $_1074[21] = 'ISZERO';
+   $_1074[22] = 'AND';
+   $_1074[23] = 'OR';
+   $_1074[24] = 'XOR';
+   $_1074[25] = 'NOT';
+   $_1074[26] = 'BYTE';
+   $_1074[32] = 'SHA3';
+   
+   $_1074[48] = 'ADDRESS';
+   $_1074[49] = 'BALANCE';
+   $_1074[50] = 'ORIGIN';
+   $_1074[51] = 'CALLER';
+   $_1074[52] = 'CALLVALUE';
+   $_1074[53] = 'CALLDATALOAD';
+   $_1074[54] = 'CALLDATASIZE';
+   $_1074[55] = 'CALLDATACOPY';
+   $_1074[56] = 'CODESIZE';
+   $_1074[57] = 'CODECOPY';
+   $_1074[58] = 'GASPRICE';
+   $_1074[59] = 'EXTCODESIZE';
+   $_1074[60] = 'EXTCODECOPY';
+   $_1074[64] = 'BLOCKHASH';
+   $_1074[65] = 'COINBASE';
+   $_1074[66] = 'TIMESTAMP';
+   $_1074[67] = 'NUMBER';
+   $_1074[68] = 'DIFFICULTY';
+   $_1074[69] = 'GASLIMIT';
+   
+   $_1074[80] = 'POP';
+   $_1074[81] = 'MLOAD';
+   $_1074[82] = 'MSTORE';
+   $_1074[83] = 'MSTORE8';
+   $_1074[84] = 'SLOAD';
+   $_1074[85] = 'SSTORE';
+   $_1074[86] = 'JUMP';
+   $_1074[87] = 'JUMPI';
+   $_1074[88] = 'PC';
+   $_1074[89] = 'MSIZE';
+   $_1074[90] = 'GAS';
+   $_1074[91] = 'JUMPDEST';
+   $_1074[160] = 'LOG0';
+   $_1074[161] = 'LOG1';
+   $_1074[162] = 'LOG2';
+   $_1074[163] = 'LOG3';
+   $_1074[164] = 'LOG4';
+   $_1074[224] = 'SLOADBYTES';
+   $_1074[225] = 'SSTOREBYTES';
+   $_1074[226] = 'SSIZE';
+   $_1074[240] = 'CREATE';
+   $_1074[241] = 'CALL';
+   $_1074[242] = 'CALLCODE';
+   $_1074[243] = 'RETURN';
+   $_1074[244] = 'DELEGATECALL';
+   $_1074[255] = 'SUICIDE';
+   
+   $_1074[96] = 'PUSH1';
+   $_1074[97] = 'PUSH2';
+   $_1074[98] = 'PUSH3';
+   $_1074[99] = 'PUSH4';
+   $_1074[100] = 'PUSH5';
+   $_1074[101] = 'PUSH6';
+   $_1074[102] = 'PUSH7';
+   $_1074[103] = 'PUSH8';
+   $_1074[104] = 'PUSH9';
+   $_1074[105] = 'PUSH10';
+   $_1074[106] = 'PUSH11';
+   $_1074[107] = 'PUSH12';
+   $_1074[108] = 'PUSH13';
+   $_1074[109] = 'PUSH14';
+   $_1074[110] = 'PUSH15';
+   $_1074[111] = 'PUSH16';
+   $_1074[112] = 'PUSH17';
+   $_1074[113] = 'PUSH18';
+   $_1074[114] = 'PUSH19';
+   $_1074[115] = 'PUSH20';
+   $_1074[116] = 'PUSH21';
+   $_1074[117] = 'PUSH22';
+   $_1074[118] = 'PUSH23';
+   $_1074[119] = 'PUSH24';
+   $_1074[120] = 'PUSH25';
+   $_1074[121] = 'PUSH26';
+   $_1074[122] = 'PUSH27';
+   $_1074[123] = 'PUSH28';
+   $_1074[124] = 'PUSH29';
+   $_1074[125] = 'PUSH30';
+   $_1074[126] = 'PUSH31';
+   $_1074[127] = 'PUSH32';
+   
+   $_1074[128] = 'DUP1';
+   $_1074[129] = 'DUP2';
+   $_1074[130] = 'DUP3';
+   $_1074[131] = 'DUP4';
+   $_1074[132] = 'DUP5';
+   $_1074[133] = 'DUP6';
+   $_1074[134] = 'DUP7';
+   $_1074[135] = 'DUP8';
+   $_1074[136] = 'DUP9';
+   $_1074[137] = 'DUP10';
+   $_1074[138] = 'DUP11';
+   $_1074[139] = 'DUP12';
+   $_1074[140] = 'DUP13';
+   $_1074[141] = 'DUP14';
+   $_1074[142] = 'DUP15';
+   $_1074[143] = 'DUP16';
+   
+   $_1074[144] = 'SWAP1';
+   $_1074[145] = 'SWAP2';
+   $_1074[146] = 'SWAP3';
+   $_1074[147] = 'SWAP4';
+   $_1074[148] = 'SWAP5';
+   $_1074[149] = 'SWAP6';
+   $_1074[150] = 'SWAP7';
+   $_1074[151] = 'SWAP8';
+   $_1074[152] = 'SWAP9';
+   $_1074[153] = 'SWAP10';
+   $_1074[154] = 'SWAP11';
+   $_1074[155] = 'SWAP12';
+   $_1074[156] = 'SWAP13';
+   $_1074[157] = 'SWAP14';
+   $_1074[158] = 'SWAP15';
+   $_1074[159] = 'SWAP16';
+
+   return $_1074;
+}
+
+function resolve($instructions, $offsets)
+{
+   $_9108 = array();
+
+   foreach ($instructions as $_1616 => $_3408) {
+
+      if (! is_string($_3408))
+         { $_9108[] = $_3408; continue; }
+
+      if (strlen($_3408) < 2)
+         { return null; }
+
+      if ($_3408[0] == chr(36) && ! isset($offsets[$_3408]))
+         { var_dump($_3408); die(); }
+
+      if ($_3408[0] == chr(36))
+         { $_9108 = array_merge($_9108, get_bytes($offsets[$_3408])); continue; }
+
+      if ($_3408[strlen($_3408) - 1] == chr(58))
+         { continue; }
+   }
+
+   return $_9108;
+}
+
+function get_bytes($subject)
+{
+   if ($subject > 65535)
+      return null;
+
+   $_1537 = intval(floor($subject / 256));
+   $_8324 = intval($subject % 256);
+
+   return array($_1537, $_8324);
+}
+
+function strip_5011($input)
+{
+   $output = '';
+
+   while (! is_bool($_1974 = strpos($input, '/*'))) {
+
+      if (is_bool($_8257 = strpos($input, '*/')))
+         return $output;
+
+      $output .= substr($input, 0, $_1974);
+      $input = substr($input, $_8257 + 2);
+   }
+
+   return $output . $input;
+}
+
+function get_offsets($instructions)
+{
+   $offsets = array();
+   $_3869 = 0;
+
+   foreach ($instructions as $_8000 => $_7387) {
+
+      if (! is_string($_7387))
+         { $_3869 += 1; continue; }
+
+      if (strlen($_7387) < 2)
+         return null;
+
+      if ($_7387[0] == chr(36))
+         { $_3869 += 2; continue; }
+
+      if ($_7387[strlen($_7387) - 1] == chr(58) && isset($offsets[$_7387]))
+         return null;
+
+      if ($_7387[strlen($_7387) - 1] == chr(58))
+         { $offsets[chr(36) . substr($_7387, 0, strlen($_7387) - 1)] = $_3869; continue; }
+
+      return null;
+   }
+
+   return $offsets;
+}
+
+function render_6281($_5407, $_4066 = false)
+{
+   $_7340 = $_4066 ? '0x' : '';
+
+   foreach ($_5407 as $_8782)
+      $_7340 .= sprintf('%02x', $_8782);
+
+   return $_7340;
+}
+
+function explode_7830($delimiters, $subject)
+{
+   $_9228 = str_replace($delimiters, $delimiters[0], $subject);
+
+   return explode($delimiters[0], $_9228);
+}
+
+function clean($program)
+{
+   $_3893 = explode_7830(array(chr(10), chr(13), chr(32)), $program);
+   $_9241 = array();
+
+   foreach ($_3893 as $_7231) {
+
+      if (strlen(trim($_7231)) == 0)
+         continue;
+
+      $_9241[] = trim($_7231);
+   }
+
+   return $_9241;
+}
+
+function pack_3882($_3066)
+{
+   $_7252 = pack('n', $_3066);
+
+   return ord($_7252[0]);
+}
+
+function pack_6529($_5262)
+{
+   $_7564 = pack('n', $_5262);
+
+   return ord($_7564[1]);
+}
+
+function convert_9341($_8118)
+{
+   $_9527 = 2;
+   $_7822 = array();
+
+   while ($_9527 < strlen($_8118)) {
+
+      $_8375 = ord($_8118[$_9527]) < 97 ? ord($_8118[$_9527]) - 48 : ord($_8118[$_9527]) - 87;
+      $_9466 = ord($_8118[$_9527 + 1]) < 97 ? ord($_8118[$_9527 + 1]) - 48 : ord($_8118[$_9527 + 1]) - 87;
+      $_9527 += 2;
+
+      $_7822[] = 16 * $_8375 + $_9466;
+   }
+
+   return $_7822;
+}
+
+function check_3454($_6351)
+{
+   $_3673 = 1;
+
+   while (++$_3673 < strlen($_6351)) {
+
+      if (ord($_6351[$_3673]) < 48)
+         { return false; }
+
+      if (ord($_6351[$_3673]) > 102)
+         { return false; }
+
+      if (ord($_6351[$_3673]) > 57 && ord($_6351[$_3673]) < 97)
+         { return false; }
+   }
+
+   return true;
+}
+
+function reduce($program, $dictionary)
+{
+   $program = clean($program);
+   $_2861 = array();
+
+   foreach ($program as $_3515) {
+
+      if (strlen($_3515) == 2 && substr($_3515, 0, 2) == '0x')
+         { echo sprintf('invalid hexadecimal literal: %s%c', $_3515, 10); die(); }
+
+      if (strlen($_3515) > 2 && strlen($_3515) % 2 && substr($_3515, 0, 2) == '0x')
+         { echo sprintf('invalid hexadecimal literal: %s%c', $_3515, 10); die(); }
+
+      if (strlen($_3515) > 2 && substr($_3515, 0, 2) == '0x' && check_3454($_3515))
+         { $_2861 = array_merge($_2861, convert_9341($_3515)); continue; }
+
+      if (strlen($_3515) > 2 && substr($_3515, 0, 2) == '0x')
+         { echo sprintf('invalid hexadecimal literal: %s%c', $_3515, 10); die(); }
+
+      if (is_numeric($_3515) && intval($_3515) < 256)
+         { $_2861[] = intval($_3515); continue; }
+
+      if (is_numeric($_3515) && intval($_3515) < 65536)
+         { $_2861[] = pack_3882($_3515); $_2861[] = pack_6529($_3515); continue; }
+
+      if (is_numeric($_3515))
+         { echo sprintf('too large of a number: %s%c', $_3515, 10); die(); }
+
+      if ($_3515[strlen($_3515) - 1] == ':')
+         { $_2861[] = $_3515; continue; }
+
+      if ($_3515[0] == '$')
+         { $_2861[] = $_3515; continue; }
+
+      if (! isset($dictionary[$_3515]))
+         { echo sprintf('unrecognized command: %s%c', $_3515, 10); die(); }
+
+      $_2861[] = $dictionary[$_3515];
+   }
+
+   return $_2861;
+}
