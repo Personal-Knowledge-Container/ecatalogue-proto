@@ -1,0 +1,742 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+   
+   <head>
+      
+      <meta content="text/html; charset=us-ascii" http-equiv="Content-Type">
+      <meta content="initial-scale=1, width=device-width" name="viewport">
+
+      <script type="application/javascript">
+
+         var contractualAddress = "0x25884b5248d612737089f26fee7163206ff79301";
+
+         var personalDetails = {
+
+            "0xee8247c6f19f9f070dd4908d91849885e292af8f": "yuanxun",
+            "0xdd83c5776c274e78bd55db135aa43210e838f5c8": "muhammadhaviz",
+            "0x3a200cdf5f81feffec17551485730e393ed023cd": "davidhuang",
+            "0x3d7f1374a7b63a57689c9d1029cea3ffb24e14d2": "koohsuehyung"
+         };
+
+         window.addEventListener("load", react_1921);
+
+         function encode(_9501) {
+
+            if (typeof _9501 == "object" && _9501 == null) {
+
+               return "";
+            }
+
+            if (typeof _9501 == "undefined") {
+
+               return "";
+            }
+
+            for (_1188 = 0, _3288 = _9501.toString(), _8022 = ""; _1188 <= _3288.length; _1188++) {
+
+               if (_1188 == _3288.length) {
+   
+                  return _8022;
+               }
+
+               if (_3288.charCodeAt(_1188).toString(16).length != 2) {
+
+                  continue;
+               }
+
+               _8022 += _3288.charCodeAt(_1188).toString(16);
+            }
+         }
+
+         function decode(_6955) {
+
+            if (typeof _6955 == "object" && _6955 == null) {
+
+               return "";
+            }
+
+            if (typeof _6955 == "undefined") {
+
+               return "";
+            }
+
+            _3610 = _6955.toString();
+
+            if (_3610.length < 2 || _3610.substring(0, 2) != "0x" || _3610.length % 2 != 0) {
+
+               return "";
+            }
+
+            for (_7384 = 2, _5140 = ""; _7384 <= _3610.length; _7384 += 2) {
+
+               if (_7384 == _3610.length) {
+
+                  return _5140;
+               }
+
+               _2016 = parseInt(_3610.substring(_7384, _7384 + 2), 16);
+
+               if (_2016 >= 32 && _2016 <= 126) {
+
+                  _5140 = _5140 + String.fromCharCode(_2016);
+               }
+            }
+         }
+
+         function pad(_6382, _9768) {
+
+            if (typeof _6382 == "object" && _6382 == null) {
+
+               return "";
+            }
+
+            if (typeof _6382 == "undefined") {
+
+               return "";
+            }
+
+            _6125 = _6382.toString();
+            _6695 = Number(_9768);
+
+            if (_6695 != _6695 || _6695 == Infinity || _6695 == -Infinity) {
+
+               return "";
+            }
+
+            if (_6382.length < 2) {
+
+               return "0x";
+            }
+
+            _3232 = "";
+
+            for (_3331 = 0; _3331 < _9768 - _6382.length + 2; _3331++) {
+
+               _3232 = _3232 + "0";
+            }
+
+            return "0x" + _3232 + _6382.substring(2);
+         }
+
+         function react_3789(_9022) {
+
+            if (_9022.keyCode != 13) {
+
+               return;
+            }
+
+            if (! window.hasOwnProperty("ethereum")) {
+
+               return;
+            }
+
+            ethereum.request({ method: 'eth_requestAccounts' }).then(react_3790);
+         }
+
+         function react_3790(_3923) {
+
+            _5222 = encode(document.getElementById("f51a").value);
+
+            ethereum.request({ method: 'eth_sendTransaction', params: [{ to: contractualAddress, from: _3923[0], data: "0x00000001" + _5222 }] }).then(react_3791);
+   
+            console.log(_5222.length);
+         }
+
+         function react_3791(_1482) {
+
+            document.getElementById("f51a").value = "";
+         }
+
+         function react_1921() {
+
+            if (_3439 = document.getElementById("f51a")) {
+
+               _3439.addEventListener("keydown", react_3789);
+            }
+
+            _1615 = document.getElementsByClassName("f2bf");
+
+            for (_7354 in _1615) {
+
+               if (! _1615.hasOwnProperty(_7354)) {
+
+                  continue;
+               }
+
+               _1043 = _1615[_7354].getElementsByClassName("a30f");
+
+               if (_1043.length != 1) {
+
+                  continue;
+               }
+
+               if (_1043[0].innerText.length == 0 || _1043[0].innerText[0] != '#') {
+
+                  continue;
+               }
+
+               if (isNaN(_8236 = parseInt(_1043[0].innerText.substring(1)))) {
+
+                  continue;
+               }
+
+               _3970 = "0x6352211e" + pad("0x" + _8236.toString(16), 64).substring(2);
+
+               _2251 = new XMLHttpRequest();
+               _2251.onreadystatechange = (function(_8232) {  return function (_2658) {
+
+                  if (_2658.target.readyState != 4) {
+
+                     return;
+                  }
+
+                  _1689 = JSON.parse(_2658.target.responseText);
+                  ;
+
+                  document.getElementById(_8232).getElementsByClassName("cd67")[0].innerHTML = "0x" + _1689.result.substring(26);
+
+                  if (personalDetails.hasOwnProperty("0x" + _1689.result.substring(26))) {
+
+                     document.getElementById(_8232).getElementsByClassName("ca81")[0].innerHTML = personalDetails["0x" + _1689.result.substring(26)];
+                  }
+
+
+               }})(_1615[_7354].id);
+
+
+               _2251.open("POST", "https://goerli.infura.io/v3/fe53d0a0a9854efc8a654151b399b7c8");
+               _2251.setRequestHeader("Content-Type", "application/json");
+               _2251.send(get_envelope(_3970, contractualAddress));
+            }
+
+            /* */
+
+            _6290 = new XMLHttpRequest();
+            _6290.onreadystatechange = function(_3586) {
+
+               if (_3586.target.readyState != 4) {
+
+                  return;
+               }
+
+               _4769 = JSON.parse(_3586.target.responseText).result.reverse();
+              
+               for (_1099 in _4769) {
+                  console.log('_1099', _4769[_1099])
+                  if (! _4769.hasOwnProperty(_1099)) {
+
+                     continue;
+                  }
+                  
+                  let messageEl = document.createElement('div')
+                  messageEl.textContent = decode(_4769[_1099].data)
+                  messageEl.className = 'cae5'
+                  
+                  identity = "element_" + Math.floor(Math.random() * 89999999 + 10000000).toString();
+                  let identityEl = document.createElement('div')
+                  identityEl.setAttribute('id', identity)
+                  identityEl.textContent = '&lt;0000-00-00-0000&gt;'
+                  identityEl.className = 'd83a'
+
+                  let identityMessageWrapperEl = document.createElement('div')
+                  identityMessageWrapperEl.className = 'e798'
+
+                  let etherscanLinkEl = document.createElement('a')
+                  etherscanLinkEl.textContent = _4769[_1099].address
+                  etherscanLinkEl.setAttribute('href', 'https://goerli.etherscan.io/address/0x25884b5248d612737089f26fee7163206ff79301')
+                  etherscanLinkEl.setAttribute('target', '_blank')
+                  etherscanLinkEl.className = 'abb3'
+
+                  let dotEl = document.createElement('div')
+                  dotEl.className = 'e476'
+
+                  let listEl = document.createElement('div')
+                  listEl.className = 'b69e'
+
+                  identityMessageWrapperEl.appendChild(identityEl)
+                  identityMessageWrapperEl.appendChild(messageEl)
+                  listEl.appendChild(dotEl)
+                  listEl.appendChild(identityMessageWrapperEl)
+                  listEl.appendChild(etherscanLinkEl)
+
+                  document.getElementById("dad5").appendChild(listEl)
+                  
+                  if (sessionStorage.getItem(_4769[_1099].blockNumber) != null) {
+ 
+                    change_9998(identity, sessionStorage.getItem(_4769[_1099].blockNumber)); continue;
+                  }
+
+                  _5522 = new XMLHttpRequest();
+                  _5522.onreadystatechange = react_9999(identity);
+                  _5522.open("POST", "https://goerli.infura.io/v3/fe53d0a0a9854efc8a654151b399b7c8");
+                  _5522.setRequestHeader("Content-Type", "application/json");
+                  _5522.send(get_envelope_9999(contractualAddress, _4769[_1099].blockNumber));
+               }
+            };
+
+            _6290.open("POST", "https://goerli.infura.io/v3/fe53d0a0a9854efc8a654151b399b7c8");
+            _6290.setRequestHeader("Content-Type", "application/json");
+            _6290.send(get_envelope_5378(contractualAddress));
+         }
+
+         function react_1922(_2658) {
+
+            if (_2658.target.readyState != 4) {
+
+               return;
+            }
+
+            console.log(_2658);
+         }
+
+         function get_envelope(_7198, _8638) {
+
+            _1064 = {input: _7198, to: _8638};
+            _2045 = {jsonrpc: "2.0", id: 1, method: "eth_call", params: [_1064, "latest"]};
+
+            return JSON.stringify(_2045);
+         }
+
+         function get_envelope_5378(_7546) {
+
+            _2986 = {address: _7546, fromBlock: "earliest"};
+            _9014 = {jsonrpc: "2.0", id: 1, method: "eth_getLogs", params: [_2986]};
+
+            return JSON.stringify(_9014);
+         }
+
+         function get_envelope_9999(_7546, _1992) {
+
+            _9014 = {jsonrpc: "2.0", id: 1, method: "eth_getBlockByNumber", params: [_1992, false]};
+
+            return JSON.stringify(_9014);
+         }
+
+         function insert_padding(_0001, _0002) {
+
+            if (typeof _0001 == "object" && _0001 == null) {
+
+               return "";
+            }
+
+            if (typeof _0001 == "undefined") {
+
+               return "";
+            }
+
+            _0003 = _0001.toString();
+            _0004 = Number(_0002);
+
+            if (_0004 != _0004 || _0004 == Infinity || _0004 == -Infinity) {
+
+               return "";
+            }
+
+            if (_0004 < 0) {
+
+               return "";
+            }
+
+            _0005 = Math.floor(_0004);
+
+            if (_0003.length >= _0005) {
+  
+               return _0003.substring(0, _0005);
+            }
+
+            for (x = 0; x < _0005 - _0003.length; x++) {
+
+               _0003 = "0" + _0003;
+            }
+
+            return _0003;
+         }
+
+         function react_9999(_6847) {
+
+            return function(_7456) {
+
+               if (_7456.target.readyState != 4) {
+
+                  return;
+               }
+
+               _6228 = JSON.parse(_7456.target.responseText);
+               _9260 = parseInt(_6228.result.timestamp.substring(2), 16);
+
+               //console.log('here');
+               //console.log(_9260);
+
+               _9261 = new Date(_9260 * 1000);
+
+               _8013 = _9261.getFullYear();
+               _2008 = insert_padding(_9261.getMonth(), 2);
+               _2086 = insert_padding(_9261.getDay(), 2);
+               _8114 = insert_padding(_9261.getHours(),2);
+               _1298 = insert_padding(_9261.getMinutes(), 2);
+
+               timestamp = _8013 + "-" + _2008 + "-" + _2086 + "-" + _8114.toString() + ":"  +  _1298.toString();
+
+               document.getElementById(_6847).innerHTML = "&lt;" + timestamp + "&gt;";
+
+               sessionStorage.setItem(_6228.result.number, timestamp);
+            };
+         }
+
+         function change_9998(_0001, _0002) {
+
+            document.getElementById(_0001).innerHTML = "&lt;" + _0002.toString() + "&gt;";
+         }
+
+      </script>
+
+      <style type="text/css">
+
+         @font-face {
+
+            font-family: SourceCodePro;
+            src: url("https://2047.yuan.engineering/50b50d9fad5a49ac34129b606027a80e1b7ccd799bb91734bb4f60cdaaeb0ac0") format("truetype");
+         }
+
+         @font-face {
+
+            font-family: SourceCodeProBold;
+            src: url("https://2047.yuan.engineering/0e0e7549a4eaaa46d142336b4338718d3f96ef2ee3a5fa6ace056bb188bfea54") format("truetype");
+         }
+
+         .d802 {
+
+            margin: 0;
+            overflow-y: scroll;
+         }
+
+         #e1eb {
+
+            background-color: #BBCCEE;
+            padding: 36px 0;
+         }
+
+         .d802 .e1eb {
+
+            font-size: 24px;
+            font-family: SourceCodePro;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 80px 0
+
+         }
+
+         #e1eb #dad5 {
+
+            margin: 0 auto;
+            width: 1024px;
+            list-style-type: none;
+            position: relative;
+         }
+
+         .d802 #e1eb {
+
+            background-color: #ffffff;
+            padding: 36px 0;
+         }
+
+         #e1eb #dad5 .f4dc {
+
+            overflow: hidden;
+         }
+
+         .d83a {
+            font-family: SourceCodePro, monospace;
+            font-size: 16px;
+            line-height: 30px;
+            margin: 0 12px 0 0;
+         }
+
+         .abb3 {
+            font-family: SourceCodePro, monospace;
+            font-size: 16px;
+            text-decoration: none;
+         }
+
+         .cae5 {
+            font-family: SourceCodePro, monospace;
+            font-size: 16px;
+            line-height: 30px;
+         }
+
+         #e1eb #dad5 .dab7 {
+
+            margin: 0 0 12px;
+         }
+
+
+
+         #d02d {
+
+            background-color: #f8f9fa;
+         }
+
+         #d02d #ae42 {
+
+            margin: 0 auto;
+            width: 1024px;
+         }
+
+         #d02d #ae42 #f51a {
+            font-family: SourceCodePro;
+            width: 100%;
+            outline: 0;
+            border-width: 0px 0px 2px 0px;
+            border-radius: 0px;
+            font-size: 24px;
+            padding: 10px 0;
+            border-color: #cecece;
+            margin-bottom: 20px;
+            background-color: transparent;
+         }
+
+
+         #b999 {
+
+            padding: 36px 0;
+         }
+
+         #b999 #dbbe {
+
+            margin: 0 auto;
+            width: 1024px;
+         }
+
+         #b999 #dbbe .f2bf {
+
+            overflow: hidden;
+         }
+
+         #b999 #dbbe .f2bf .e630 {
+
+            float: left;
+            height: 30px;
+            margin: 0 12px 0 0;
+            width: 30px;
+         }
+
+         #b999 #dbbe .f2bf .e631 {
+
+            float: left;
+            font-family: SourceCodePro, monospace;
+            font-size: 16px;
+            line-height: 30px;
+            font-weight: bold;
+            margin: 0 12px 0 0;
+         }
+
+         #b999 #dbbe .f2bf .cd68 {
+            
+            float: left;
+            font-family: SourceCodePro, monospace;
+            font-size: 16px;
+            line-height: 30px;
+            margin: 0 12px 0 0;
+            width: 395px;
+            font-weight: bold;
+
+         }
+
+         #b999 #dbbe .f2bf .a30f {
+
+            float: left;
+            font-family: SourceCodePro, monospace;
+            font-size: 16px;
+            line-height: 30px;
+            margin: 0 12px 0 0;
+            font-weight: bold;
+         }
+
+         #b999 #dbbe .f2bf .cd67 {
+
+            float: left;
+            font-family: SourceCodePro, monospace;
+            font-size: 16px;
+            line-height: 30px;
+            margin: 0 12px 0 0;
+         }
+
+         #b999 #dbbe .f2bf .ca81 {
+
+            float: left;
+            font-family: SourceCodePro, monospace;
+            font-size: 16px;
+            line-height: 30px;
+
+         }
+
+         #b999 #dbbe .f2bf .ca82 {
+
+            float: left;
+            font-family: SourceCodePro, monospace;
+            font-size: 16px;
+            line-height: 30px;
+            font-weight:bold;
+         }
+
+         #b999 #dbbe .c1de {
+
+            margin: 0 0 12px;
+         }
+
+         
+        #dad5 {
+          list-style-type: none;
+          position: relative;
+        }
+        #dad5:before {
+          content: '';
+          position: absolute;
+          left: 20px;
+          height: 100%;
+          z-index: 2;
+          top: 0;
+          bottom: 0;
+          border-left: 3px dashed #e3e6f0;
+        }
+        #dad5 .b69e {
+          margin: 3rem 2rem 3rem 5rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          padding-bottom: 1rem;
+        }
+        #dad5 .b69e > h4 {
+          margin-bottom: 0;
+        }
+        #dad5 .b69e .timeline-item-date {
+          font-size: .9rem;
+          margin-bottom: 30px;
+        }
+        #dad5 .b69e .e476 {
+          background-color: #2250fc;
+          position: absolute;
+          border-radius: 50%;
+          left: 0px;
+          width: 34px;
+          height: 34px;
+          z-index: 3;
+          color: #ffffff;
+          text-align: center;
+          padding: 5px;
+          font-size: 18px;
+        }
+        #dad5 .b69e .e476 i {
+          margin-top: 1px;
+        }
+        
+        #b17e {
+            height: 80px;
+            background-color: #fff;
+            padding: 0 30px;
+        }
+
+        #b17e .d850 {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto;
+        }
+
+        #b17e .d850 #e6a3 {
+         display: flex;
+         align-items: center;
+        }
+
+        #b17e .d850 #e6a3 .cfa6 {
+         text-decoration: none;
+         font-family: "Poppins", sans-serif;
+         font-size: 40px;
+         color: #1f1f1f;
+         font-weight: 800;
+         letter-spacing: 1.5px;
+        }
+
+        #b17e .d850 #e6a3 .eca9 {
+         font-family: "Poppins", sans-serif;
+         font-size: 40px;
+         color: #1f1f1f;
+         font-weight: 800;
+         letter-spacing: 1.5px;
+        }
+
+        #b17e .d850 .b5a6 {
+         display: block;
+        }
+
+        #b17e .d850 .b5a6 .a301 {
+         list-style: none;
+         display: flex;
+        }
+
+        #b17e .d850 .b5a6 .a301 .b085 {
+         padding: 12px;
+        }
+
+        #b17e .d850 .b5a6 .b085 .ecea {
+         text-decoration: none;
+         display: block;
+         color: #1f1f1f;
+         font-weight: bold;
+         font-family: SourceCodePro;
+        }
+
+        #b17e .d850 .b5a6 .b085:hover .ecea {
+            color: #2250fc;
+        }
+
+        .a8d5 {
+         font-family: SourceCodePro;
+        }
+
+      </style>
+
+      <title></title>
+
+   </head>
+
+   <body class="d802">
+      <div id="b17e">
+          <div class="d850">
+               <div id="e6a3">
+                     <a class="cfa6" href="index.html">
+                        <span class="eca9">Blockchain Messaging</span>
+                     </a>
+               </div>
+               <div class="b5a6">
+                  <ul class="a301">
+                        <li class="b085">
+                           <a class="ecea" href="/">Home</a>
+                        </li>
+                        <li class="b085">
+                           <a class="ecea" href="./product.html">NFT</a>
+                        </li>
+                  </ul>
+               </div>
+          </div>
+      </div>
+
+      <div class="e1eb">Blockchain Messaging Example</div>
+
+      <div id="d02d">
+        <div id="ae42">
+         <label class="a8d5" for="f51a">Message:
+           <input type="text" id="f51a" >
+         </label>
+        </div>
+      </div>
+
+      <div id="e1eb">
+         <div id="dad5">
+         </div>
+       </div>
+   </body>
+
+</html>

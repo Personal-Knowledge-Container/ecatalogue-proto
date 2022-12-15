@@ -1,0 +1,753 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+   
+   <head>
+      
+      <meta content="text/html; charset=us-ascii" http-equiv="Content-Type">
+      <meta content="initial-scale=1, width=device-width" name="viewport">
+
+      <script type="application/javascript">
+
+         /*<!-- 7300 -->*/
+         // https://goerli.etherscan.io/address/0xdd83c5776c274e78bd55db135aa43210e838f5c8
+         contractualAddress = "0x25884b5248d612737089f26fee7163206ff79301";
+         merchandise = "0000000000";
+
+         /*<!-- 9533 -->*/
+
+         var personalDetails = {
+
+            "0xee8247c6f19f9f070dd4908d91849885e292af8f": "yuanxun",
+            "0xdd83c5776c274e78bd55db135aa43210e838f5c8": "muhammadhaviz",
+            "0x3a200cdf5f81feffec17551485730e393ed023cd": "davidhuang",
+            "0x3d7f1374a7b63a57689c9d1029cea3ffb24e14d2": "koohsuehyung"
+         };
+
+         window.addEventListener("load", react_1921);
+
+         function encode(_9501) {
+
+            if (typeof _9501 == "object" && _9501 == null) {
+
+               return "";
+            }
+
+            if (typeof _9501 == "undefined") {
+
+               return "";
+            }
+
+            for (_1188 = 0, _3288 = _9501.toString(), _8022 = ""; _1188 <= _3288.length; _1188++) {
+
+               if (_1188 == _3288.length) {
+   
+                  return _8022;
+               }
+
+               if (_3288.charCodeAt(_1188).toString(16).length != 2) {
+
+                  continue;
+               }
+
+               _8022 += _3288.charCodeAt(_1188).toString(16);
+            }
+         }
+
+         function decode(_6955) {
+
+            if (typeof _6955 == "object" && _6955 == null) {
+
+               return "";
+            }
+
+            if (typeof _6955 == "undefined") {
+
+               return "";
+            }
+
+            _3610 = _6955.toString();
+
+            if (_3610.length < 2 || _3610.substring(0, 2) != "0x" || _3610.length % 2 != 0) {
+
+               return "";
+            }
+
+            for (_7384 = 2, _5140 = ""; _7384 <= _3610.length; _7384 += 2) {
+
+               if (_7384 == _3610.length) {
+
+                  return _5140;
+               }
+
+               _2016 = parseInt(_3610.substring(_7384, _7384 + 2), 16);
+
+               if (_2016 >= 32 && _2016 <= 126) {
+
+                  _5140 = _5140 + String.fromCharCode(_2016);
+               }
+            }
+         }
+
+         function pad(_6382, _9768) {
+
+            if (typeof _6382 == "object" && _6382 == null) {
+
+               return "";
+            }
+
+            if (typeof _6382 == "undefined") {
+
+               return "";
+            }
+
+            _6125 = _6382.toString();
+            _6695 = Number(_9768);
+
+            if (_6695 != _6695 || _6695 == Infinity || _6695 == -Infinity) {
+
+               return "";
+            }
+
+            if (_6382.length < 2) {
+
+               return "0x";
+            }
+
+            _3232 = "";
+
+            for (_3331 = 0; _3331 < _9768 - _6382.length + 2; _3331++) {
+
+               _3232 = _3232 + "0";
+            }
+
+            return "0x" + _3232 + _6382.substring(2);
+         }
+
+         function react_3789(_9022) {
+            // alert(window.hasOwnProperty("ethereum"));
+
+            if (! window.hasOwnProperty("ethereum")) {
+               return;
+            }
+
+            ethereum.request({ method: 'eth_requestAccounts' }).then(react_3790);
+         }
+
+         function react_btns(a){
+            // send minting eth
+            if (! window.hasOwnProperty("ethereum")) {
+               return;
+            }
+
+            ethereum.request({ method: 'eth_requestAccounts' }).then(react_mint_product);
+            document.getElementById("btns").innerHTML = "Processing"
+            // console.log(sProduct);            
+         }
+
+         function react_mint_product(_3923) {
+            
+            sPrep = '{"eCatalogue" : ["Product Name":"'+ document.getElementById("c3fb").innerHTML +'", "Minimum Order":"'+ document.getElementById("cb4b").innerHTML +'"] }';
+
+            _5222 = encode(sPrep);
+            ethereum.request({ method: 'eth_sendTransaction', params: [{ to: contractualAddress, from: _3923[0], data: "0x00000001" + _5222 }] }).then(post_mint);
+
+         }
+
+         function post_mint(_1482){
+            document.getElementById("btns").innerHTML = "MINTED!";
+
+         }
+
+         function react_3790(_3923) {
+
+            _5222 = encode(document.getElementById("eb86").value);
+
+            ethereum.request({ method: 'eth_sendTransaction', params: [{ to: contractualAddress, from: _3923[0], data: "0x00000001" + _5222 }] }).then(react_3791);
+         }
+
+         function react_3791(_1482) {
+
+            document.getElementById("eb86").value = "";
+         }
+
+         function react_4066(_3586) {
+
+            if (_3586.target.readyState != 4) {
+
+               return;
+            }
+         }
+
+         function submit_5421(_6111, _1193) {
+
+            /* Rename everything. */
+
+            _7536 = document.createElement("input");
+            _7536.setAttribute("name", "merchandise");
+            _7536.setAttribute("value", _6111);
+
+            _5275 = document.createElement("input");
+            _5275.setAttribute("name", "quantity");
+            _5275.setAttribute("value", _1193);
+
+            _3216 = document.createElement("form");
+            _3216.appendChild(_7536);
+            _3216.appendChild(_5275);
+            _3216.setAttribute("action", "/add-merchandise-to-basket-8222");
+            _3216.setAttribute("method", "POST");
+
+            _3216.style.visibility = "hidden";
+            document.body.appendChild(_3216).submit();
+         }
+
+         function react_5014(_6309) {
+
+            submit_5421(merchandise, document.getElementById("b902").value);
+            _6309.preventDefault();
+         }
+
+         function react_1921() {
+
+            if (_3159 = document.getElementById("d4eb")) {
+
+               _3159.addEventListener("click", react_5014);
+            }
+
+            if (_3439 = document.getElementById("cc82")) {
+
+               _3439.addEventListener("click", react_3789);
+            }
+
+            if (_btn_mint = document.getElementById("btns")) {
+
+               _btn_mint.addEventListener("click", react_btns);
+            }
+
+            _6290 = new XMLHttpRequest();
+            _6290.onreadystatechange = react_4066;
+
+            _6290.open("POST", "https://goerli.infura.io/v3/fe53d0a0a9854efc8a654151b399b7c8");
+            _6290.setRequestHeader("Content-Type", "application/json");
+            _6290.send(get_envelope_5378(contractualAddress));
+         }
+
+         function react_1922(_2658) {
+
+            if (_2658.target.readyState != 4) {
+
+               return;
+            }
+
+            console.log(_2658);
+         }
+
+         function get_envelope(_7198, _8638) {
+
+            _1064 = {input: _7198, to: _8638};
+            _2045 = {jsonrpc: "2.0", id: 1, method: "eth_call", params: [_1064, "latest"]};
+
+            return JSON.stringify(_2045);
+         }
+
+         function get_envelope_5378(_7546) {
+
+            _2986 = {address: _7546, fromBlock: "earliest"};
+            _9014 = {jsonrpc: "2.0", id: 1, method: "eth_getLogs", params: [_2986]};
+
+            return JSON.stringify(_9014);
+         }
+
+         function get_envelope_9999(_7546, _1992) {
+
+            _9014 = {jsonrpc: "2.0", id: 1, method: "eth_getBlockByNumber", params: [_1992, false]};
+
+            return JSON.stringify(_9014);
+         }
+
+         function transit(_5280) {
+
+            if (_5280 != _5280) {
+
+               return 0;
+            }
+
+            return Math.floor(_5280);
+         }
+
+         function insert_padding(_0001, _0002) {
+
+            if (typeof _0001 == "object" && _0001 == null) {
+
+               return "";
+            }
+
+            if (typeof _0001 == "undefined") {
+
+               return "";
+            }
+
+            _0003 = _0001.toString();
+            _0004 = Number(_0002);
+
+            if (_0004 != _0004 || _0004 == Infinity || _0004 == -Infinity) {
+
+               return "";
+            }
+
+            if (_0004 < 0) {
+
+               return "";
+            }
+
+            _0005 = Math.floor(_0004);
+
+            if (_0003.length >= _0005) {
+  
+               return _0003.substring(0, _0005);
+            }
+
+            for (x = 0; x < _0005 - _0003.length; x++) {
+
+               _0003 = "0" + _0003;
+            }
+
+            return _0003;
+         }
+
+         function react_9999(_6847) {
+
+            return function(_7456) {
+
+               if (_7456.target.readyState != 4) {
+
+                  return;
+               }
+
+               _6228 = JSON.parse(_7456.target.responseText);
+               _9260 = parseInt(_6228.result.timestamp.substring(2), 16);
+
+               //console.log('here');
+               //console.log(_9260);
+
+               _9261 = new Date(_9260 * 1000);
+
+               _8013 = _9261.getFullYear();
+               _2008 = insert_padding(_9261.getMonth() + 1, 2);
+               _2086 = insert_padding(_9261.getDate(), 2);
+               _8114 = insert_padding(_9261.getHours(),2);
+               _1298 = insert_padding(_9261.getMinutes(), 2);
+
+               timestamp = _8013 + "-" + _2008 + "-" + _2086 + "-" + _8114.toString() + ":"  +  _1298.toString();
+
+               document.getElementById(_6847).innerHTML = "&lt;" + timestamp + "&gt;";
+
+               sessionStorage.setItem(_6228.result.number, timestamp);
+            };
+         }
+
+         function change_9998(_0001, _0002) {
+
+            document.getElementById(_0001).innerHTML = "&lt;" + _0002.toString() + "&gt;";
+         }
+
+         // adding for product minting
+
+
+      </script>
+
+      <title></title>
+
+      <style type="text/css">
+
+         @font-face {
+
+            font-family: SourceCodePro;
+            src: url("https://2047.yuan.engineering/50b50d9fad5a49ac34129b606027a80e1b7ccd799bb91734bb4f60cdaaeb0ac0") format("truetype");
+         }
+
+         @font-face {
+
+            font-family: SourceSansPro;
+            src: url("https://2047.yuan.engineering/961a639b53baf78f48a25bd96fc8b94204f808ac814a4c08ea7292f999214304") format("truetype");
+         }
+
+         .e69e {
+
+            margin: 0;
+            overflow-y: scroll;
+         }
+
+         #f325 {
+
+            box-shadow: #CCCCCC 3px 3px 3px;
+         }
+
+         #f325 #d02a {
+
+            margin: 0 auto;
+            overflow: hidden;
+            width: 1048px;
+         }
+
+         #f325 #d02a #fd1a {
+
+            color: #000000;
+            float: left;
+            font-family: SourceSansPro, serif;
+            font-size: 24px;
+            line-height: 60px;
+            margin: 0 0 0 12px;
+            text-decoration: none;
+         }
+
+         #f325 #d02a #eb65 {
+
+            float: right;
+            overflow: hidden;
+         }
+
+         #f325 #d02a #eb65 .ecb7 {
+
+            color: #000000;
+            float: left;
+            font-family: SourceSansPro, serif;
+            font-size: 14px;
+            line-height: 60px;
+            padding: 0 12px;
+            text-decoration: none;
+         }
+
+         #f325 #d02a #eb65 .c793 {
+
+            display: none;
+         }
+
+         #c63e {
+
+            padding: 36px 0;
+         }
+
+         #c63e #a490 {
+
+            margin: 0 auto;
+            width: 1024px;
+         }
+
+         #c63e #a490 #e292 {
+
+            border: 1px solid #000000;
+            border-radius: 6px;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 16px;
+            margin: 0 0 36px;
+            padding: 12px;
+         }
+
+         #c63e #a490 #c3fb {
+
+            font-family: SourceSansPro, serif;
+            font-size: 24px;
+            line-height: 24px;
+            margin: 0 0 6px;
+         }
+
+         #c63e #a490 #ffe7 {
+
+            margin: 0 0 36px;
+         }
+
+         #c63e #a490 #ffe7 #c4d1 {
+
+            background-color: #000000;
+            color: #FFFFFF;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 36px;
+            padding: 0 12px;
+         }
+
+         #c63e #a490 #ffe7 #fccc {
+
+            background-color: #EEEEEE;
+            padding: 12px;
+         }
+
+         #c63e #a490 #ffe7 #fccc #eb86 {
+
+            background-color: #DDDDDD;
+            border: none;
+            box-sizing: border-box;
+            display: block;
+            font-family: SourceCodePro, monospace;
+            font-size: 16px;
+            line-height: 20px;
+            margin: 0 0 12px;
+            outline: 0;
+            overflow-y: scroll;
+            padding: 6px;
+            resize: none;
+            width: 50%;
+         }
+
+         #c63e #a490 #ffe7 #fccc {
+
+            overflow: hidden;
+         }
+
+         #c63e #a490 #ffe7 #fccc #cc82 {
+
+            background-color: #000000;
+            color: #FFFFFF;
+            font-family: SourceCodePro, monospace;
+            font-size: 16px;
+            line-height: 36px;
+            width: 25%;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+         }
+
+         #c63e #a490 #f9b6 {
+
+            background-color: #000000;
+            color: #FFFFFF;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 36px;
+            padding: 0 12px;
+         }
+
+         #c63e #a490 #fcbc {
+
+            background-color: #EEEEEE;
+            padding: 12px;
+         }
+
+         #c63e #a490 #fcbc .cf60 {
+
+            display: block;
+            margin: 0 0 12px 0
+            overflow: hidden;
+         }
+
+         #c63e #a490 #fcbc .cf60 .d976 {
+
+            float: left;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 30px;
+            margin: 0 8px 0 0;
+         }
+
+         #c63e #a490 #d8f9 {
+
+            margin: 0 0 36px;
+            overflow: hidden;
+         }
+
+         #c63e #a490 #d8f9 #d8af {
+
+            float: left;
+            height: 300px;
+            width: 300px;
+         }
+
+         #c63e #a490 #d8f9 #f58d {
+
+            margin: 0 0 24px;
+            overflow: hidden;
+         }
+
+         #c63e #a490 #d8f9 #f58d #f9d8 {
+
+            border-collapse: collapse;
+            width: 100%;
+         }
+
+         #c63e #a490 #d8f9 #f58d .a554 {
+
+         }
+
+         #c63e #a490 #d8f9 #f58d .a554 .f3f9 {
+
+            border-bottom: 1px solid #000000;
+            border-right: 1px solid #000000;
+            border-top: 1px solid #000000;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 30px;
+            padding: 0 6px;
+         }
+
+         #c63e #a490 #d8f9 #f58d .a554 .b437 {
+
+            border-bottom: 1px solid #000000;
+            border-right: 1px solid #000000;
+            border-top: 1px solid #000000;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 30px;
+            padding: 0 6px;
+         }
+
+         #c63e #a490 #d8f9 #f58d .a554 .b437 .ec5b {
+
+            color: #000000;
+         }
+
+         #c63e #a490 #d8f9 #bea5 {
+
+            float: left;
+            margin: 0 0 0 24px;
+            overflow: hidden;
+         }
+
+         #c63e #a490 #d8f9 #bea5 #b902 {
+
+            border-bottom: 1px solid #000000;
+            border-left: 1px solid #000000;
+            border-right: none;
+            border-top: 1px solid #000000;
+            box-sizing: border-box;
+            float: left;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 30px;
+            outline: 0;
+            padding: 0 6px;
+            width: 96px;
+         }
+
+         #c63e #a490 #d8f9 #bea5 #btns {
+
+            box-sizing: border-box;
+            float: left;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 30px;
+            outline: 0;
+            padding: 0 6px;
+            width: 96px;
+         }
+
+         #c63e #a490 #d8f9 #bea5 #btns {
+
+            background-color: #000000;
+            color: #FFFFFF;
+            float: left;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 32px;
+            padding: 0 18px;
+            text-decoration: none;
+         }
+
+
+         #c63e #a490 #d8f9 #bea5 #d4eb {
+
+            background-color: #000000;
+            color: #FFFFFF;
+            float: left;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 32px;
+            padding: 0 18px;
+            text-decoration: none;
+         }
+
+      </style>
+
+   </head>
+
+   <body class="e69e">
+
+      <div id="f325"><div id="d02a">
+
+         <a href="/" id="fd1a">NationalCatalog</a>
+
+         <div id="eb65">
+            <a class="ecb7" href="/">HOME</a>
+            <a class="ecb7" href="/browse-merchandise">BROWSE MERCHANDISE</a>
+            <a class="ecb7 c793" href="/submit-merchandise">SUBMIT MERCHANDISE</a>
+            <a class="ecb7 c793" href="/view-basket">VIEW BASKET (<span id="c77f">0</span>)</a>
+            <a class="ecb7" href="/log-in" id="fee9">LOG IN</a>
+            <a class="ecb7 c793" href="/log-out" id="e8a3">LOG OUT (<span id="ebb0">YUAN XUN</span>)</a>
+         </div>
+
+      </div></div>
+
+      <div id="c63e"><div id="a490">
+
+         <div id="e292" style="display: none">Your comment has been sent to the blockchain: <span id="d9fc">0xe621ed7bc4e7bbd0a97ae228d9bcbcc2d500e378e957f8e4b1adbfd2b64cfed5</span></div>
+
+         <div id="c3fb">Inexpensive Car</div>
+
+         <div id="d8f9">
+
+            <img alt="" id="d8af" src="https://i.imgur.com/C3yxCLA.png">
+
+            <div id="f58d"><table id="f9d8">
+
+               <tr class="a554">
+                  <td class="f3f9">Beginning Date</td>
+                  <td class="b437" id="e12f">2022-10-20</td>
+               </tr>
+
+               <tr class="a554">
+                  <td class="f3f9">Ending Date</td>
+                  <td class="b437" id="fd67">2022-12-01</td>
+               </tr>
+
+               <tr class="a554">
+                  <td class="f3f9">Address of Contract</td>
+                  <td class="b437"><a class="ec5b" href="/" id="c782">0xf389b6f8ed54cd47d8a6cf6ba506f0cbaf72ceb0</a></td>
+               </tr>
+
+               <tr class="a554">
+                  <td class="f3f9">Minimum Order</td>
+                  <td class="b437" id="cb4b">2</td>
+               </tr>
+
+               <tr class="a554">
+                  <td class="f3f9"># of Units Available</td>
+                  <td class="b437" id="cddb">550</td>
+               </tr>
+
+               <tr class="a554">
+                  <td class="f3f9">Price per Unit</td>
+                  <td class="b437" id="a17a">3,949 IDR</td>
+               </tr>
+
+            </table></div>
+
+            <div id="bea5">            
+               <input id="b902" value="1">
+               <a href="/" id="d4eb">Add to Cart</a>
+               <a href="#" id="btns">Mint</a>
+            </div>
+
+         </div>
+
+         <div id="ffe7">
+
+            <div id="c4d1">Leave a Comment</div>
+
+            <div id="fccc">
+               <textarea cols="" id="eb86" rows="12"></textarea>
+               <div id="cc82">Send</div>
+            </div>
+
+         </div>
+
+         <div id="f9b6">Comments (<span id="eb9c">0</span>)</div>
+
+         <div id="fcbc"></div>
+
+      </div></div>
+
+   </body>
+
+</html>

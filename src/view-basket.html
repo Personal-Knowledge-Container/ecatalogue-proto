@@ -1,0 +1,611 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+
+   <head>
+
+      <script type="application/javascript">
+
+         var contractualAddress = "0x25884b5248d612737089f26fee7163206ff79301";
+
+         window.addEventListener("load", react_7836);
+
+         /* 7710 */
+
+         function encode(_9501) {
+
+            if (typeof _9501 == "object" && _9501 == null) {
+
+               return "";
+            }
+
+            if (typeof _9501 == "undefined") {
+
+               return "";
+            }
+
+            for (_1188 = 0, _3288 = _9501.toString(), _8022 = ""; _1188 <= _3288.length; _1188++) {
+
+               if (_1188 == _3288.length) {
+   
+                  return _8022;
+               }
+
+               if (_3288.charCodeAt(_1188).toString(16).length != 2) {
+
+                  continue;
+               }
+
+               _8022 += _3288.charCodeAt(_1188).toString(16);
+            }
+         }
+
+         function decode(_6955) {
+
+            if (typeof _6955 == "object" && _6955 == null) {
+
+               return "";
+            }
+
+            if (typeof _6955 == "undefined") {
+
+               return "";
+            }
+
+            _3610 = _6955.toString();
+
+            if (_3610.length < 2 || _3610.substring(0, 2) != "0x" || _3610.length % 2 != 0) {
+
+               return "";
+            }
+
+            for (_7384 = 2, _5140 = ""; _7384 <= _3610.length; _7384 += 2) {
+
+               if (_7384 == _3610.length) {
+
+                  return _5140;
+               }
+
+               _2016 = parseInt(_3610.substring(_7384, _7384 + 2), 16);
+
+               if (_2016 >= 32 && _2016 <= 126) {
+
+                  _5140 = _5140 + String.fromCharCode(_2016);
+               }
+            }
+         }
+
+         function pad(_6382, _9768) {
+
+            if (typeof _6382 == "object" && _6382 == null) {
+
+               return "";
+            }
+
+            if (typeof _6382 == "undefined") {
+
+               return "";
+            }
+
+            _6125 = _6382.toString();
+            _6695 = Number(_9768);
+
+            if (_6695 != _6695 || _6695 == Infinity || _6695 == -Infinity) {
+
+               return "";
+            }
+
+            if (_6382.length < 2) {
+
+               return "0x";
+            }
+
+            _3232 = "";
+
+            for (_3331 = 0; _3331 < _9768 - _6382.length + 2; _3331++) {
+
+               _3232 = _3232 + "0";
+            }
+
+            return "0x" + _3232 + _6382.substring(2);
+         }
+
+         function react_7836() {
+
+            document.getElementById("d194").addEventListener("click", react_2051);
+
+            if (! window.hasOwnProperty("merchandise") || typeof merchandise != "object" || merchandise == null) {
+
+               return;
+            }
+
+            for (_4400 in merchandise) {
+
+               if (! merchandise.hasOwnProperty(_4400) || typeof merchandise[_4400] != "object" || merchandise[_4400] == null) {
+
+                  continue;
+               }
+
+               if (! merchandise[_4400].hasOwnProperty(2)) {
+
+                  continue;
+               }
+
+               if (! (_5607 = document.getElementById(merchandise[_4400][2]))) {
+
+                  continue;
+               }
+
+               _5607.addEventListener("click", react_6308);
+            }
+         }
+
+         function react_6308(_6684) {
+
+            _6684.preventDefault();
+
+            if (! merchandise.hasOwnProperty("length")) {
+
+               return;
+            }
+
+            /* Defend against non-integer. */
+
+            for (_4484 = 0; _4484 < merchandise.length; _4484++) {
+
+               if (! merchandise.hasOwnProperty(_4484)) {
+
+                  continue;
+               }
+
+               if (merchandise[_4484][2] == _6684.target.id) {
+
+                  break;
+               }
+            }
+
+            if (! merchandise[_4484].hasOwnProperty(0)) {
+
+               return;
+            }
+
+            if (! merchandise[_4484].hasOwnProperty(1)) {
+
+               return;
+            }
+
+            if (! (_1689 = document.getElementById(merchandise[_4484][1]))) {
+
+               return;
+            }
+
+            send_7867(merchandise[_4484][0], _1689.value);
+         }
+
+         function send_7867(_5200, _4834) {
+
+            /* Rename everything including the name of the function. */
+
+            _7536 = document.createElement("input");
+            _7536.setAttribute("name", "merchandise");
+            _7536.setAttribute("value", _5200);
+
+            _5275 = document.createElement("input");
+            _5275.setAttribute("name", "quantity");
+            _5275.setAttribute("value", _4834);
+
+            _3216 = document.createElement("form");
+            _3216.appendChild(_7536);
+            _3216.appendChild(_5275);
+            _3216.setAttribute("action", "/change-quantity-of-merchandise-6637");
+            _3216.setAttribute("method", "POST");
+
+            _3216.style.visibility = "hidden";
+            document.body.appendChild(_3216).submit();
+         }
+
+         function react_2051(_4830) {
+
+            _4830.preventDefault();
+
+            if (! window.hasOwnProperty("ethereum")) {
+
+               return;
+            }
+
+            ethereum.request({ method: 'eth_requestAccounts' }).then(react_3790);            
+         }
+
+         function react_3790(_3923) {
+
+            _5222 = encode(overview);
+
+            ethereum.request({ method: 'eth_sendTransaction', params: [{ to: contractualAddress, from: _3923[0], data: "0x00000001" + _5222 }] }).then(function () {});
+
+            console.log(_5222.length);
+         }
+       
+      </script>
+
+      <style type="text/css">
+
+         @font-face {
+
+            font-family: SourceSansPro;
+            src: url("https://2047.yuan.engineering/961a639b53baf78f48a25bd96fc8b94204f808ac814a4c08ea7292f999214304") format("truetype");
+         }
+
+         .a223 {
+
+            margin: 0;
+            overflow-y: scroll;
+         }
+
+         #ca57 {
+
+            padding: 36px 0;
+         }
+
+         #ca57 #b163 {
+
+            margin: 0 auto;
+            width: 1024px;
+         } 
+
+         #ca57 #b163 .eb6d {
+
+            box-shadow: #999999 0px 0px 6px;
+            overflow: hidden;
+            position: relative;
+            padding: 12px;
+         }
+
+         #ca57 #b163 .eb6d .c171 {
+
+            float: left;
+            margin: 0 18px 0 0;
+         }
+
+         #ca57 #b163 .eb6d .c171 .fe64 {
+
+            display: block;
+            height: 96px;
+            width: 96px;
+         }
+
+         #ca57 #b163 .eb6d .a16e {
+
+            float: left;
+         }
+
+         #ca57 #b163 .eb6d .a16e .a4b2 {
+
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 16px;
+            height: 32px;
+            margin: 0 0 12px;
+         }
+
+         #ca57 #b163 .eb6d .a16e .a4b2 .a784 {
+
+            color: #000000;
+         }
+
+         #ca57 #b163 .eb6d .a16e .bbda {
+
+            
+         }
+
+         #ca57 #b163 .eb6d .a16e .bbda .ac3d {
+
+            float: left;
+         }
+
+         #ca57 #b163 .eb6d .a16e .bbda .ac3d .cda5 {
+
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 20px;
+         }
+
+         #ca57 #b163 .eb6d .a16e .bbda .ac3d .b25a {
+
+            border: 1px solid #000000;
+            box-sizing: border-box;
+            display: block;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 30px;
+            outline: 0;
+            padding: 0 6px;
+            width: 196px;
+         }
+
+         #ca57 #b163 .eb6d .a16e .bbda .ac3d .b7e8 {
+
+            overflow: hidden;
+         }
+
+         #ca57 #b163 .eb6d .a16e .bbda .ac3d .b7e8 .b97d {
+
+            border-bottom: 1px solid #000000;
+            border-left: 1px solid #000000;
+            border-right: none;
+            border-top: 1px solid #000000;
+            box-sizing: border-box;
+            display: block;
+            float: left;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 30px;
+            outline: 0;
+            padding: 0 6px;
+            width: 128px;
+         }
+
+         #ca57 #b163 .eb6d .a16e .bbda .ac3d .b7e8 .c865 {
+
+            background-color: #000000;
+            color: #FFFFFF;
+            float: left;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 32px;
+            padding: 0 12px;
+            text-decoration: none;
+         }
+
+
+/*
+                     <div class="b7e8">
+                        <input class="b97d">
+                        <a class="c865" href="/">Update</a>
+                     </div>
+*/
+
+         #ca57 #b163 .eb6d .a16e .bbda .f37c {
+
+            margin: 0 18px 0 0;
+         }
+
+         #ca57 #b163 .eb6d .e236 {
+
+            position: absolute;
+            right: 6px;
+            top: 6px;
+         }
+
+         #ca57 #b163 .eb6d .e236 .fc4c {
+
+            height: 24px;
+            width: 24px;
+         }
+
+/*
+         <div class="eb6d dbe7">
+
+            <a class="c171" href="/"><img class="fe64" src="https://i.imgur.com/C3yxCLA.png"></a>
+            <div class="a4b2"><a class="a784" href="/">Coffee Machine</a></a>
+
+            <div class="ac3d">
+               <div class="cda5">Quantity</div>
+               <input class="b25a">
+            </div>
+
+            <div class="ac3d">
+               <div class="cda5">Price of Unit</div>
+               <input class="b25a">
+            </div>
+
+            <div class="ac3d">
+               <div class="cda5">Subtotal</div>
+               <input class="b25a">
+            </div>
+
+            <a class="e236" href="/"><img class="fc4c" src="https://i.imgur.com/C3yxCLA.png"></a>
+            
+
+*/
+
+         #ca57 #b163 .dbe7 {
+
+            margin: 0 0 12px;
+         }
+
+         #ca57 #b163 #c322 {
+
+            box-shadow: #999999 0px 0px 6px;
+            overflow: hidden;
+            padding: 12px;            
+         }
+
+         #ca57 #b163 #c322 #d194 {
+
+            background-color: #000000;
+            color: #FFFFFF;
+            float: left;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 32px;
+            padding: 0 18px;
+            text-decoration: none;
+         }
+
+         #ca57 #b163 #c322 #acbd {
+
+            float: right;
+            font-family: SourceSansPro, serif;
+            font-size: 16px;
+            line-height: 32px;
+         }
+
+         #ca57 #c9f6 {
+         
+            font-family: SourceSansPro, serif;
+            font-size: 32px;
+            margin: 50px 0 25px 0;
+            line-height: 16px;
+         }
+
+         #ca57 #ef4b {
+
+         font-family: SourceSansPro, serif;
+         font-size: 16px;
+         line-height: 16px;
+         margin: 0 0 3px;
+         }
+
+
+         #ca57 #ey28 {
+
+         border: 1px solid #000000;
+         box-sizing: border-box;
+         display: block;
+         font-family: SourceSansPro, serif;
+         font-size: 16px;
+         line-height: 30px;
+         margin: 0 0 12px;
+         outline: 0;
+         padding: 0 6px;
+         width: 50%;
+         }
+
+         #ca57 #s5d2 {
+
+         background-color: #006600;
+         color: #FFFFFF;
+         cursor: pointer;
+         font-family: SourceSansPro, serif;
+         font-size: 16px;
+         line-height: 32px;
+         text-align: center;
+         cursor: pointer;
+         width: 30%
+         }
+
+         #f325 {
+
+            box-shadow: #CCCCCC 3px 3px 3px;
+         }
+
+         #f325 #d02a {
+
+            margin: 0 auto;
+            overflow: hidden;
+            width: 1048px;
+         }
+
+         #f325 #d02a #fd1a {
+
+            color: #000000;
+            float: left;
+            font-family: SourceSansPro, serif;
+            font-size: 24px;
+            line-height: 60px;
+            margin: 0 0 0 12px;
+            text-decoration: none;
+         }
+
+         #f325 #d02a #eb65 {
+
+            float: right;
+            overflow: hidden;
+         }
+
+         #f325 #d02a #eb65 .ecb7 {
+
+            color: #000000;
+            float: left;
+            font-family: SourceSansPro, serif;
+            font-size: 14px;
+            line-height: 60px;
+            padding: 0 12px;
+            text-decoration: none;
+         }
+
+         #f325 #d02a #eb65 .c793 {
+
+            display: none;
+         }
+
+      </style>
+
+      <title>Confirm Account</title>
+
+   </head>
+
+   <body class="a223">
+
+      <div id="f325"><div id="d02a">
+
+         <a href="/" id="fd1a">NationalCatalog</a>
+
+         <div id="eb65">
+            <a class="ecb7" href="/">HOME</a>
+            <a class="ecb7" href="/browse-merchandise">BROWSE MERCHANDISE</a>
+            <a class="ecb7 c793" href="/submit-merchandise">SUBMIT MERCHANDISE</a>
+            <a class="ecb7 c793" href="/view-basket">VIEW BASKET (<span id="c77f">0</span>)</a>
+            <a class="ecb7" href="/log-in" id="fee9">LOG IN</a>
+            <a class="ecb7 c793" href="/log-out" id="e8a3">LOG OUT (<span id="ebb0">YUAN XUN</span>)</a>
+         </div>
+
+      </div></div>
+
+      <div id="ca57"><div id="b163">
+
+         <!-- 4451 -->
+
+         <div class="eb6d dbe7">
+
+            <a class="c171" href="/"><img class="fe64" src="https://i.imgur.com/C3yxCLA.png"></a>
+
+            <div class="a16e">
+
+               <div class="a4b2"><a class="a784" href="/">Coffee Machine</a></div>
+
+               <div class="bbda">
+
+                  <div class="ac3d f37c">
+
+                     <div class="cda5">Quantity</div>
+
+                     <div class="b7e8">
+                        <input class="b97d">
+                        <a class="c865" href="/">Update</a>
+                     </div>
+
+                  </div>
+
+                  <div class="ac3d f37c">
+                     <div class="cda5">Price of Unit</div>
+                     <input class="b25a">
+                  </div>
+
+                  <div class="ac3d">
+                     <div class="cda5">Subtotal</div>
+                     <input class="b25a">
+                  </div>
+
+               </div>
+
+            </div>
+
+            <a class="e236" href="/"><img class="fc4c" src="https://2047.yuan.engineering/03bf1e2512e3bf1be696ba5f4e150cc637d5571527e738966dee1a413a971b78"></a>
+            
+         </div>
+
+         <!-- 9484 -->
+
+         <div id="c322">
+            <a href="/" id="d194">Buy (Send to Blockchain)</a>
+            <div id="acbd">Total: <span id="fea1">897,191 IDR</span></div>
+         </div>
+
+      </div></div>
+
+   </body>
+
+</html>
+
